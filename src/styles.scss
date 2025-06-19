@@ -1,0 +1,236 @@
+// Imports
+@import "colours";
+@import "typography";
+@import "light-theme";
+@import "dark-theme";
+@import "ant-design";
+
+// @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&family=Satisfy&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=IM+Fell+English:ital@0;1&family=Lexend+Deca:wght@100..900&family=Quicksand:wght@300..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&family=Satisfy&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+// Mode
+
+body.dark {
+  @include darken();
+}
+body.light {
+  @include lighten();
+}
+
+/* Scroll Bar Styling */
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 8px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $primary6;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $primary4;
+}
+
+* {
+  font-family: $font-quicksand;
+}
+
+// TYPOGRAPHY
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: $font-quicksand;
+}
+
+p {
+  font-family: $font-quicksand;
+}
+
+.lead-text {
+  font-size: $font-16;
+  font-weight: bold;
+}
+
+.body-16 {
+  font-size: $font-16;
+}
+
+.body-14 {
+  font-size: $font-14;
+}
+
+.block-quotes {
+  font-size: $font-20;
+}
+
+.capitalized {
+  text-transform: uppercase;
+}
+
+.small {
+  font-size: $font-12;
+}
+
+.tiny {
+  font-size: $font-10;
+}
+
+.ant-input {
+  background: transparent;
+}
+
+::selection {
+  background-color: rgb(254, 244, 215);
+  color: rgb(92, 92, 92);
+}
+
+a {
+  text-decoration: unset !important;
+  color: inherit !important;
+}
+
+nz-breadcrumb-item:hover {
+  cursor: pointer;
+}
+
+.placeholder {
+  border-radius: 8px;
+  background: $blackA6;
+}
+
+.authorise-signature-pad {
+  background: transparent !important;
+}
+
+.ant-input-group-addon {
+  position: unset;
+  padding: 0;
+  color: unset;
+  font-weight: unset;
+  font-size: unset;
+  text-align: unset;
+  background-color: unset;
+  border: unset;
+  border-radius: unset;
+}
+
+.ant-popover-title {
+  border-bottom: none;
+}
+
+:root {
+  --navbar-bg: rgba(255, 255, 255, 0.3);
+  --navbar-bg-solid: #ffffff;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.navbar-transparent {
+  background-color: transparent !important;
+  box-shadow: none;
+}
+
+.navbar-solid {
+  background-color: #fff !important;
+}
+
+.ant-upload.ant-upload-drag {
+  height: unset;
+}
+
+.ant-input {
+  background: white;
+}
+
+// .terms-and-conditions {
+//   padding: 20px;
+// }
+
+// .terms-and-conditions h4,
+// .terms-and-conditions h5,
+// .terms-and-conditions p,
+// .terms-and-conditions ol {
+//   font-family: "IM Fell English", serif;
+// }
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+  border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none !important;
+}
+
+.navbar-toggler {
+  border: none !important;
+  color: white !important;
+}
+
+.t-c-click {
+  color: $primary6;
+  font-weight: 500;
+  transition-duration: .5s;
+}
+
+.t-c-click:hover {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+
+
+//  Responsiveness
+
+/* Laptops (≤ 1024px) */
+@media (max-width: 1024px) {
+  
+}
+
+/* Tablets (≤ 768px) */
+@media (max-width: 768px) {
+  
+}
+
+/* Large Phones (≤ 600px) */
+@media (max-width: 600px) {
+  
+}
+
+/* Small Phones (≤ 400px) */
+@media (max-width: 400px) {
+  .navbar-nav {
+    text-align: center;
+    color: #232323 !important;
+    font-weight: 900;
+  }
+  .ant-divider-inner-text {
+    background: rgba(106, 106, 106, 0.6);
+    color: white;
+    font-weight: 500;
+    border-radius: 5px;
+  }
+}

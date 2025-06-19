@@ -1,0 +1,69 @@
+<div>
+    <div class="d-flex justify-content-center">
+        <img src="/assets/images/brand/afc_link.png" alt="" class="img-fluid" style="max-width: 150px;">
+    </div>
+    <div class="mt-3">
+        <p class="modal-details-paragraph">Use your AFC Link credentials to login.</p>
+    </div>
+        <form nz-form class="login-form mt-3">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your username!">
+              <nz-input-group nzPrefixIcon="phone">
+                <input nz-input name="username" [(ngModel)]="loginForm.username" placeholder="Phone Number" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your Password!">
+                <div class="d-flex">
+                  <nz-input-group nzPrefixIcon="lock">
+                  <input name="pin" type="password" nz-input [(ngModel)]="loginForm.password" placeholder="PIN" />
+                </nz-input-group>
+                
+                </div>
+                
+            </nz-form-control>
+          </nz-form-item>
+          <div class="mt-3 d-flex justify-content-center" *ngIf="!otpIsVisible">
+              <afc-button
+                  [label]="'Submit'"
+                  [disableButton]="loginForm.username === '' || loginForm.password === ''"
+                  [loading]="loginLoader"
+                  (buttonClick)="authenticate()"
+                  [style]="'primary'"
+                  [size]="'sm'"
+              />
+          </div>
+          <div class="mt-3 d-flex justify-content-center" *ngIf="otpIsVisible">
+            <afc-button
+                [label]="'Resend OTP'"
+                [disableButton]="loginForm.username === '' || loginForm.password === '' || loginLoader"
+                [loading]="false"
+                (buttonClick)="resendOTP()"
+                [style]="'primary'"
+                [size]="'sm'"
+            />
+        </div>
+          <nz-form-item *ngIf="otpIsVisible" class="mt-3">
+              <nz-form-control nzErrorTip="Please input your Password!" >
+                
+                <div class="d-flex">
+                  <nz-input-group nzPrefixIcon="lock">
+                    <input name="otp" type="password" nz-input [(ngModel)]="loginForm.otp" placeholder="OTP" />
+                  </nz-input-group>
+                </div>
+                
+              </nz-form-control>
+            </nz-form-item>
+            <div class="mt-3 d-flex justify-content-center" *ngIf="otpIsVisible">
+              <afc-button
+                  [label]="'Submit'"
+                  [disableButton]="loginForm.otp === ''"
+                  [loading]="loginLoader"
+                  (buttonClick)="authenticate()"
+                  [style]="'primary'"
+                  [size]="'sm'"
+              />
+          </div>
+        </form>
+  </div>

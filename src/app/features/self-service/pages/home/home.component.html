@@ -1,0 +1,404 @@
+<div class="container home-container">
+  <div class="hero-text-wrapper d-flex h-100">
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+          <div>
+            <h1 class="heading-34">
+              Welcome to the AFC Holdings <span class="highlighter">self-service</span> platform
+            </h1>
+            <p class="centered">
+              Experience unmatched convenience at the click of a button!
+            </p>
+            <!-- <div class="mt-5 d-flex justify-content-center">
+              <afc-button
+                [label]="'Open New Account'"
+                [disableButton]="false"
+                [loading]="false"
+                (buttonClick)="navigateTo('open-new-account')"
+                [style]="'primary'"
+                [size]="'lg-long'"
+              />
+            </div> -->
+            <div class="mt-5 d-flex justify-content-center">
+              <div style="max-width: 350px; width: 100%">
+                <nz-input-group
+                  nzSize="large"
+                  nzSearch
+                  [nzAddOnAfter]="suffixIconButton"
+                >
+                  <input
+                    [(ngModel)]="ticketId"
+                    type="text"
+                    nz-input
+                    placeholder="Enter your tracking number"
+                  />
+                </nz-input-group>
+                <ng-template #suffixIconButton>
+                  <button
+                    nz-button
+                    nzType="primary"
+                    [nzLoading]="isLoadingTrackIssue"
+                    (click)="trackIssue()"
+                    nzSearch
+                    class="tracker-button"
+                  >
+                    <div class="d-flex">
+                      <div class="d-flex align-items-center" style="font-size: 18px">
+                        {{ isLoadingTrackIssue ? '' : 'Track' }}
+                      </div>
+                      <div class="ms-1 d-flex align-items-center">
+                        <span nz-icon>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                          >
+                            <rect width="24" height="24" fill="none" />
+                            <path
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                              d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5M1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.2 10.2 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25"
+                              clip-rule="evenodd"
+                            /></svg
+                        ></span>
+                      </div>
+                    </div>
+                  </button>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+
+
+
+    <div class="mt-5">
+      <!-- <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input placeholder="Search for answers" />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <span nz-icon nzType="search"></span>
+      </ng-template> -->
+      <div>
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-6 d-flex align-items-center">
+            <div>
+              
+              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <!-- <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                </div> -->
+                <div class="carousel-inner">
+                  <div class="carousel-item active" data-bs-interval="5000">
+                    <div class="d-block w-100">
+                      <div class="hero-text">
+                        <h5 class="cta-heading">
+                          <!-- <span class="cta-main-heading"><span class="underline"> Account</span> Opening <br /></span> -->
+                          <div class="cta-text">Open a current account with AFC Commercial Bank now !</div>
+                        </h5>
+                      </div>
+
+                      <div class="d-flex justify-content-center mt-4">
+                        <div>
+                          <afc-button
+                            [label]="'Open New Account'"
+                            [disableButton]="false"
+                            [loading]="false"
+                            (buttonClick)="navigateTo('open-new-account')"
+                            [style]="'primary'"
+                            [size]="'lg'"
+                          />
+                        </div>
+                      </div>
+                    
+                      </div>
+                  </div>
+                  <!-- <div class="carousel-item" data-bs-interval="5000">
+                    <div class="d-block w-100">
+                      <div class="hero-text">
+                        <h5 class="cta-heading">
+                          <div class="cta-text">Apply for an personal loan from the comfort of your home !</div>
+                        </h5>
+                      </div>
+
+                      <div class="d-flex justify-content-center mt-4">
+                        <div>
+                          <afc-button
+                            [label]="'Apply for a Loan'"
+                            [disableButton]="false"
+                            [loading]="false"
+                            (buttonClick)="navigateTo('loan-application')"
+                            [style]="'primary'"
+                            [size]="'lg'"
+                          />
+                        </div>
+                      </div>
+                    
+                      </div>
+                  </div> -->
+                  <!-- <div class="carousel-item">
+                    <div class="d-block w-100">
+                      <h5 class="cta-heading">
+                        Need <span class="underline">Money?</span><br />
+                        <div class="mt-3">Apply for a loan online!</div>
+                      </h5>
+                      <div class="mt-5">
+                        <afc-button
+                          [label]="'Apply for a loan'"
+                          [disableButton]="false"
+                          [loading]="false"
+                          (buttonClick)="navigateTo('loan-application')"
+                          [style]="'primary'"
+                          [size]="'lg'"
+                        />
+                      </div>
+                      </div>
+                  </div> -->
+                </div>
+                <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button> -->
+              </div>
+            </div>
+            <!-- <div>
+              <h5 class="cta-heading">
+                <span class="underline">Exciting</span> News! <br />
+                <div class="mt-3">Open a new account with AFC now!</div>
+              </h5>
+              <div class="mt-5">
+                <afc-button
+                  [label]="'Open New Account'"
+                  [disableButton]="false"
+                  [loading]="false"
+                  (buttonClick)="navigateTo('open-new-account')"
+                  [style]="'primary'"
+                  [size]="'lg'"
+                />
+              </div>
+            </div> -->
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+        
+
+        <div class="mt-5 d-flex justify-content-center arrow-down-container">
+          <div>
+            <div class="arrow-down d-flex justify-content-center mt-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+              >
+                <rect width="24" height="24" fill="none" />
+                <path
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  d="M4.43 6.512a.75.75 0 0 1 1.058-.081L12 12.012l6.512-5.581a.75.75 0 0 1 .976 1.138l-7 6a.75.75 0 0 1-.976 0l-7-6a.75.75 0 0 1-.081-1.057m0 4a.75.75 0 0 1 1.058-.081L12 16.012l6.512-5.581a.75.75 0 1 1 .976 1.139l-7 6a.75.75 0 0 1-.976 0l-7-6a.75.75 0 0 1-.081-1.058"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mb-5">
+
+  <div class="mt-5">
+    <nz-divider nzText="Featured Options" style="color: white;"></nz-divider>
+  </div>
+  <div class="mt-5">
+    <div class="d-flex flex-column">
+      <div class="flex-grow-1">
+        <div nz-row [nzGutter]="[16, 16]" style="padding: 0 10px" class="d-flex justify-content-center">
+          <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
+            <div
+              class="admin-stats-card"
+              (click)="navigateTo('open-new-account')"
+            >
+              <div class="admin-card-img-container">
+                <img
+                  class="admin-img"
+                  src="/assets/images/illustrations/new-account.svg"
+                  alt=""
+                />
+              </div>
+              <div class="admin-card-header">Open New Account</div>
+            </div>
+          </div>
+          <!-- <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
+            <div
+              class="admin-stats-card"
+              (click)="navigateTo('faqs')"
+            >
+              <div class="admin-card-img-container">
+                <img
+                  class="admin-img"
+                  src="/assets/images/illustrations/faqs.svg"
+                  alt=""
+                />
+              </div>
+              <div class="admin-card-header">FAQs</div>
+            </div>
+          </div> -->
+          <!-- <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
+            <div
+              class="admin-stats-card"
+              (click)="navigateTo('loan-application')"
+            >
+              <div class="admin-card-img-container">
+                <img
+                  class="admin-img"
+                  src="/assets/images/illustrations/loan-application.svg"
+                  alt=""
+                />
+              </div>
+              <div class="admin-card-header">Apply for a Loan</div>
+            </div>
+          </div> -->
+          <!-- <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
+            <div
+              class="admin-stats-card"
+              (click)="navigateTo('contact-us')"
+            >
+              <div class="admin-card-img-container">
+                <img
+                  class="admin-img"
+                  src="/assets/images/illustrations/contact-us.svg"
+                  alt=""
+                />
+              </div>
+              <div class="admin-card-header">Contact Us</div>
+            </div>
+          </div> -->
+          <!-- <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="8" nzXl="8">
+            <div
+              class="admin-stats-card"
+              (click)="navigateTo('insurance-application')"
+            >
+              <div class="admin-card-img-container">
+                <img
+                  class="admin-img"
+                  src="/assets/images/illustrations/get-insured.svg"
+                  alt=""
+                />
+              </div>
+              <div class="admin-card-header">Get Insured</div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tracking Modal -->
+
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-template #modalTitle></ng-template>
+
+  <ng-template #modalContent>
+    @if (isLoadingTrackIssue) {
+      <div style="text-align: center">
+        <h5>Loading...</h5>
+      </div>
+      <div class="d-flex justify-content-center">
+        <nz-skeleton [nzActive]="true"></nz-skeleton>
+      </div>
+    } @else {
+      <div>
+        <div style="text-align: center">
+          <h5>Ticket Number: {{ ticketId }}</h5>
+        </div>
+        <div>
+          @if (queryTicket.ticket.service == 'account-opening') {
+            <nz-list nzBordered>
+              <nz-list-item>
+                <span nz-typography>SERVICE</span>
+                {{queryTicket.ticket.service}}
+              </nz-list-item>
+              <nz-list-item>
+                <span nz-typography>MESSAGE</span>
+                {{queryTicket.ticket.message}}
+              </nz-list-item>
+  
+              <nz-list-item>
+                <span nz-typography>STATUS</span>
+                <nz-tag nzColor="yellow" [nzBordered]="false">{{queryTicket.ticket.status}}</nz-tag>
+              </nz-list-item>
+            </nz-list>
+          }
+          @if (queryTicket.ticket.service == 'loans') {
+            <nz-list nzBordered>
+              <nz-list-item>
+                <span nz-typography>PRODUCT</span>
+                {{queryTicket.record.product}}
+              </nz-list-item>
+              <!-- <nz-list-item>
+                <span nz-typography>STATUS</span>
+                <app-self-service-status-tag [status]="queryTicket.ticket.status"></app-self-service-status-tag>
+              </nz-list-item> -->
+              <nz-list-item>
+                <span nz-typography>STATUS</span>
+                {{queryTicket.record.qualify=='true' ? 'PASSED' : 'FAILED'}}
+              </nz-list-item>
+            
+            </nz-list>
+
+            <div class="mt-3" *ngIf="queryTicket.record.state=='PENDING_GUARANTOR'">
+                <div class="d-flex justify-content-center">
+                
+                  <button nz-button nzType="primary" (click)="resendOtpToGuarantor()" [nzLoading]="guarantorConfirmationLoader">
+                    Resend OTP to Guarantor
+                  </button>
+              </div>
+            </div>
+
+
+            <div class="mt-3" *ngIf="queryTicket.ticket.service == 'loans' && queryTicket.record.qualify=='true' && queryTicket.record.applicationSubmitted!='true'">
+              <!-- <div class="d-flex justify-content-end" *ngIf="(queryTicket.record.qualify).toString() == 'true'"> -->
+                <div class="d-flex justify-content-end">
+                <nz-button-group>
+                  <button nz-button nzType="default" (click)="proceed(false)">
+                    <span nz-icon nzType="close"></span>
+                    Cancel
+                  </button>
+                  <button nz-button nzType="primary" (click)="proceed(true)">
+                    Proceed
+                    <span nz-icon nzType="check"></span>
+                  </button>
+                </nz-button-group>
+              </div>
+            </div>
+          }
+          
+        </div>
+        
+      </div>
+    }
+  </ng-template>
+
+  <ng-template #modalFooter> </ng-template>
+</nz-modal>

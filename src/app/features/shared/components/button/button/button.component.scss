@@ -1,0 +1,73 @@
+@import "colours";
+@import "typography";
+@import "buttons";
+
+.default-btn {
+}
+
+.loading-sm {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.loading-md {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+}
+
+.loading-lg {
+  height: 52px;
+  width: 52px;
+  border-radius: 50%;
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, #00bcd4, #2ebd59);
+  color: white;
+}
+
+.btn-gradient-light {
+  background: linear-gradient(135deg, #00bcd42e, #2ebd592e);
+  color: #233238;
+  font-weight: 900 !important;
+}
+
+.btn-secondary {
+  background: rgba(254, 244, 215, 1);
+}
+
+.btn-cancel {
+  background: rgba(230, 230, 230, 0.3);
+}
+
+.btn-exit {
+  background-color: $vs-danger;
+  color: white;
+}
+
+.btn-sm {
+  font-weight: 900;
+  font-size: $font-14;
+  min-width: 100px;
+  height: 40px;
+}
+
+.btn-md {
+  font-size: $font-14;
+  min-width: 125px;
+  height: 45px;
+}
+
+.btn-lg {
+  font-size: $font-16;
+  min-width: 150px;
+  height: 52px;
+}
+
+.btn-lg-long {
+  font-size: $font-16;
+  width: 400px;
+  height: 52px;
+}

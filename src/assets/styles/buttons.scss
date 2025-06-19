@@ -1,0 +1,44 @@
+@import "colours";
+@import "typography";
+
+button {
+  font-family: $font-quicksand;
+  font-weight: 600;
+  border: none;
+  touch-action: manipulation;
+  transition: transform .25s, width 1s;
+  transition-duration: .25s;
+}
+
+.btn-primary {
+  background-color: $primary6;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: grey;
+  color: black;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  transition-duration: .25s;
+}
+
+button:active {
+  transform: translateY(3px);
+}
+
+button:disabled {
+  background-color: #b7b7b7;
+}
+
+.default-btn {
+  transition-duration: 1s;
+  border-radius: 15px;
+}
+
+.loading {
+  transition-duration: 1s;
+  border-radius: 50%;
+}

@@ -1,0 +1,34 @@
+.app-background {
+  background-image: url("/assets/images/brand/afc-portal-bg-3.png");
+  // background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  overflow: scroll;
+}
+
+//  Responsiveness
+
+/* Laptops (≤ 1024px) */
+@media (max-width: 1024px) {
+  
+}
+
+/* Tablets (≤ 768px) */
+@media (max-width: 768px) {
+  
+}
+
+/* Large Phones (≤ 600px) */
+@media (max-width: 600px) {
+  
+}
+
+/* Small Phones (≤ 400px) */
+@media (max-width: 400px) {
+  .nav-buttons-section {
+    display: flex;
+    justify-content: center;
+  }
+}
+

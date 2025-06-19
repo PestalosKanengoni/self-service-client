@@ -1,0 +1,327 @@
+@import "colours";
+
+.home-container {
+  height: calc(100vh - 115.06px)
+}
+
+.hero-text-wrapper {
+  flex-direction: column;
+  align-items: center;
+  // max-width: 750px;
+  margin-top: 40px;
+  // margin-left: auto;
+  // margin-right: auto;
+  display: flex;
+}
+
+.heading-34 {
+  margin-bottom: 10px;
+  font-size: 35px;
+  font-weight: 900;
+  color: white;
+  text-align: center;
+}
+
+.highlighter {
+  background-color: rgb(19, 90, 42);
+  border-radius: 10px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.centered {
+  color: white;
+  text-align: center;
+  width: 100%;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.ant-input-affix-wrapper {
+  font-size: 25px;
+  border: none;
+  border-radius: 10px;
+}
+
+.admin-stats-card {
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 2rem rgba(51, 71, 80, 0.02);
+  padding: 1rem;
+  border-radius: 8px;
+  transition-duration: 0.8s;
+  border: 1px solid transparent;
+}
+
+.admin-card-img-container {
+  height: 225px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-card-header {
+  color: $blackA10;
+  text-align: center;
+  font-size: 20px;
+  transition-duration: 0.5s;
+}
+
+.admin-stats-card:hover {
+  cursor: pointer;
+  box-shadow: rgba(42, 179, 71, 0.2) 0px 8px 24px;
+  border: 1px solid $primary6;
+}
+
+.admin-stats-card:hover .admin-card-header {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.admin-img {
+  transition-duration: 0.5s;
+  max-height: 200px;
+}
+
+.admin-stats-card:hover .admin-img {
+  transform: scale(1.1);
+}
+
+nz-select {
+  width: 500px;
+  font-size: 25px;
+}
+
+::ng-deep
+  .ant-select-show-search.ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
+  cursor: text;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+}
+
+::ng-deep .ant-select-dropdown {
+  border-radius: 10px;
+}
+
+::ng-deep .ant-select-item {
+  font-size: 18px;
+}
+
+::ng-deep .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: $primary1;
+}
+
+@keyframes float {
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(-15px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
+}
+
+.floating-cta {
+  animation: float 3s ease-in-out infinite;
+}
+
+.underlined-heading {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -0.125rem;
+    left: -0.5rem;
+    right: -0.5rem;
+    height: 0.75rem;
+
+    // Position the line behind the text so that
+    // it is still easily readable
+    z-index: -1;
+
+    // The SVG is added as an SVG background image
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDIwIDIwIj48cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiLz48ZyBmaWxsPSIjRjhENzc1IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCI+PHBhdGggZD0iTTEuNSAxMUExLjUgMS41IDAgMCAxIDMgOS41aDE1YTEuNSAxLjUgMCAwIDEgMCAzSDNBMS41IDEuNSAwIDAgMSAxLjUgMTEiIG9wYWNpdHk9IjAuMiIvPjxwYXRoIGQ9Ik0uNSAxMGEuNS41IDAgMCAxIC41LS41aDE4YS41LjUgMCAwIDEgMCAxSDFhLjUuNSAwIDAgMS0uNS0uNSIvPjwvZz48L3N2Zz4=");
+    background-repeat: no-repeat;
+
+    // This allows the SVG to flex in size to fit
+    // any length of word. If the word is short,
+    // the SVG will be stretched vertically, if it
+    // is long, the SVG will be stretched horizontally.
+    // The jagged nature of this particular SVG works
+    // with this transforming.
+    background-size: cover;
+  }
+}
+
+.underline {
+  position: relative;
+}
+.underline:before {
+  content: "";
+  position: relative;
+  width: 100%;
+  height: 2.45em;
+  left: 0;
+  width: 100%;
+  z-index: -10;
+  background-image: url("/assets/images/illustrations/doodle-underline.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.underline:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2.45em;
+  left: 0;
+  width: 100%;
+  z-index: -10;
+  background-image: url("/assets/images/illustrations/doodle-underline.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+// .cta-heading {
+//   font-size: 30px;
+//   font-style: italic;
+// }
+
+// .cta-heading::after {
+//   content: '';
+//   background-color: red;
+//   opacity: 0.5;
+// }
+
+.cta-heading {
+  font-size: 30px;
+  // font-style: italic;
+  position: relative;
+}
+
+.hero-text {
+  position: relative; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-text::before {    
+    content: "";
+    background-color: rgb(106 106 106);
+    background-size: cover;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.3;
+    border-radius: 20px;
+}
+
+
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+.arrow-down {
+  color: $primary6;
+  animation: bounce 2s infinite;
+  &:hover {
+    animation: none;
+  }
+}
+
+.ant-input {
+  margin: 0px !important;
+  background: white;
+  border-radius: 15px;
+  border: 1px solid transparent;
+}
+
+.tracker-button {
+  border-radius: 0 15px 15px 0 !important;
+  //background-color: #caf197;
+  //color: black;
+  //border: 1px solid transparent;
+}
+
+.cta-main-heading {
+  font-size: 30px;
+  font-style: italic;
+  color: white;
+}
+
+.cta-text {
+  font-size: 26px;
+  // font-style: italic;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+//  Responsiveness
+
+/* Laptops (≤ 1024px) */
+@media (max-width: 1024px) {
+  
+}
+
+/* Tablets (≤ 768px) */
+@media (max-width: 768px) {
+  
+}
+
+/* Large Phones (≤ 600px) */
+@media (max-width: 600px) {
+  
+}
+
+/* Small Phones (≤ 400px) */
+@media (max-width: 400px) {
+  .heading-34 {
+    font-size: 30px;
+    color: #232323;
+  }
+  .centered {
+    color: #232323;
+  }
+  .highlighter {
+    color: white;
+  }
+  .cta-text {
+    font-size: 22px;
+  }
+
+  .home-container {
+    height: unset;
+  }
+  .arrow-down-container {
+    display: none !important;
+  }
+}

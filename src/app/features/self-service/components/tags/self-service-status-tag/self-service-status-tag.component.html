@@ -1,0 +1,12 @@
+@if (status=='CREATED') {
+    <nz-tag nzColor="yellow" [nzBordered]="false">{{ status }}</nz-tag>
+}
+@if (status=='OPEN') {
+    <nz-tag nzColor="blue" [nzBordered]="false">{{ status }}</nz-tag>
+}
+@if (status=='CLOSED') {
+    <nz-tag nzColor="green" [nzBordered]="false">{{ status }}</nz-tag>
+}
+@if (status=='FAILED') {
+    <nz-tag nzColor="red" [nzBordered]="false">{{ status }}</nz-tag>
+}

@@ -1,0 +1,24 @@
+// mixin that enables css variables in light mode
+@import "../styles/colours";
+
+@mixin lighten() {
+  --appBg: #{$appBackground_light};
+  --appAssistiveText: #{$appAssistiveText_light};
+  --appCardBackground: #{$appCardBackground_light};
+  --appCardBoxShadow: #{$appCardBackground_light};
+  --appCardHeadingBackground: #{$appCardHeadingBackground_light};
+  --appCardBorder: #{$appCardBorder_light};
+  --appCardHeadingBackgroundColor: #{$appCardHeadingBackgroundColor_light};
+  --appCardInfoBackgroundColor: #{$appCardInfoBackgroundColor_light};
+
+
+
+  --sideNavBg: #{$vs-background};
+  --bgColor: #{$white_alt};
+  --textColor: #{$textColor_light};
+  --borderColor: #{$borderColor_light};
+  --heading: #{$fontHeadingLight};
+  --paragraph: #{$paragraphLight};
+  --cardBackground: #{$dae-white};
+  --avatarBackground: #cccccc;
+}

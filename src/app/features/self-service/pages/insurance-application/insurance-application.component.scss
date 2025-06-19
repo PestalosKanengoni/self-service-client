@@ -1,0 +1,94 @@
+@import "colours";
+
+.modal-heading {
+    text-align: center;
+    font-weight: 900;
+    font-size: 20px;
+    color: $primary6;
+  }
+  
+  .modal-paragraph {
+    text-align: center;
+    color: #62686a;
+    font-size: 18px;
+  }
+
+  .modal-icon {
+    color: $primary6;
+  }
+  
+  .form-container {
+    min-height: calc(100vh - 185px);
+    padding: 40px 0px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form {
+    background-color: rgba(255, 255, 255, 0.9);
+    flex-grow: 1;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow:
+      rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    padding: 20px;
+  }
+  
+  .button-container {
+    margin: 0px 10px;
+  }
+  
+  .ant-input {
+    margin: 0px !important;
+  }
+  
+  nz-select {
+    width: 100%;
+  }
+  
+  .ant-picker {
+    width: 100%;
+  }
+  
+  .ant-page-header {
+    padding: 16px 0;
+  }
+
+  .required-field {
+    color: rgb(255, 71, 87);
+    font-family: "Space Mono", monospace;
+    font-size: 20px;
+    margin-right: 8px;
+  }
+  
+  .responsive-stepper-container {
+    display: none;
+  }
+
+  //  Responsiveness
+
+/* Laptops (≤ 1024px) */
+@media (max-width: 1024px) {
+  
+}
+
+/* Tablets (≤ 768px) */
+@media (max-width: 768px) {
+  
+}
+
+/* Large Phones (≤ 600px) */
+@media (max-width: 600px) {
+  
+}
+
+/* Small Phones (≤ 400px) */
+@media (max-width: 400px) {
+  .stepper-container {
+    display: none;
+  }
+  .responsive-stepper-container {
+    display: contents;
+  }
+}

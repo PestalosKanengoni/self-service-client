@@ -1,0 +1,145 @@
+@import "colours";
+
+.modal-heading {
+  text-align: center;
+  font-weight: 900;
+  font-size: 20px;
+  color: $primary6;
+}
+
+.modal-paragraph {
+  text-align: center;
+  color: #62686a;
+  font-size: 18px;
+}
+
+.highlighter {
+  background-color: #d2f50c;
+  border-radius: 10px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.modal-icon {
+  color: $primary6;
+}
+
+.form-container {
+  min-height: calc(100vh - 185px);
+  padding: 40px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  background-color: rgba(255, 255, 255, 0.9);
+  flex-grow: 1;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  padding: 20px;
+}
+
+.button-container {
+  margin: 0px 10px;
+}
+
+.ant-input {
+  margin: 0px !important;
+}
+
+nz-select {
+  width: 100%;
+}
+
+.ant-picker {
+  width: 100%;
+}
+
+.ant-page-header {
+  padding: 16px 0;
+}
+
+.fas-upload-area {
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  outline: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: #fafafa;
+  border: 1px dashed #d9d9d9;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 16px 0;
+  display: table;
+}
+
+.fas-upload-icon {
+  color: $primary6;
+}
+
+.fas-upload-area:hover {
+  border: 1px dashed $primary6;
+}
+
+.fas-ant-upload-text {
+  margin: 0 0 4px;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 16px;
+}
+
+.fas-ant-upload-hint {
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 14px;
+  margin: 0;
+}
+
+.required-field {
+  color: rgb(255, 71, 87);
+  font-family: "Space Mono", monospace;
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.responsive-stepper-container {
+  display: none;
+}
+
+//  Responsiveness
+
+/* Laptops (≤ 1024px) */
+@media (max-width: 1024px) {
+  
+}
+
+/* Tablets (≤ 768px) */
+@media (max-width: 768px) {
+  
+}
+
+/* Large Phones (≤ 600px) */
+@media (max-width: 600px) {
+  
+}
+
+/* Small Phones (≤ 400px) */
+@media (max-width: 400px) {
+  .stepper-container {
+    display: none;
+  }
+  .responsive-stepper-container {
+    display: contents;
+  }
+}
+

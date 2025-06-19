@@ -1,0 +1,727 @@
+<!-- Personal Information -->
+<!-- Product Information -->
+<!-- Quotation -->
+<!-- Submit -->
+
+<div class="mt-5">
+    <div class="container stepper-container">
+      <nz-steps [nzCurrent]="current">
+        <nz-step nzTitle="Personal Information"></nz-step>
+        <nz-step nzTitle="Product Information"></nz-step>
+        <nz-step nzTitle="Quotation"></nz-step>
+        <nz-step nzTitle="Submit"></nz-step>
+      </nz-steps>
+    </div>
+
+    <div>
+      <div class="steps-action d-flex">
+        <div class="steps-content flex-grow-1">
+          <div class="form-container h-100">
+            <div class="container h-100">
+              <div class="form">
+                <div class="d-flex flex-column h-100">
+                  <div class="flex-grow-1">
+                    <div class="responsive-stepper-container">
+                      {{ current==0 ? 'Personal Information' : 
+                      current==1 ? 'Product Information' : 
+                      current==2 ? 'Quotation' :
+                      'Submit' 
+                      }}
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex align-items-center">
+                        <p style="margin: 0;">
+                          <span *ngIf="current != 3">
+                            The fields marked with an asterisk (<span style="color: rgb(255, 71, 87);font-family: 'Space Mono', monospace; font-size: 20px;">*</span>) are mandatory and must be completed to enable you to proceed to the next stage.
+                          </span>
+                        </p>
+                      </div>
+                      <div class="">
+                        <afc-button
+                        nz-tooltip
+                        nzTooltipTitle="Cancel Application"
+                        nz-popconfirm
+        nzPopconfirmTitle="Are you sure you want to cancel and exit the process?"
+        nzPopconfirmPlacement="bottom"
+        (nzOnConfirm)="openLeavePageModal()"
+                            [label]="'Cancel'"
+                            [loading]="false"
+                            [style]="'exit'"
+                            [size]="'sm'"
+                          />
+                      </div>
+                      
+                    </div>
+                    
+                    
+                    @if (current == 0) {
+                      <div>
+                        <div>
+                          <div class="d-flex">
+                            <div>
+                              <nz-page-header
+                                nzTitle="Identification"
+                                nzSubtitle="Please enter your ID Number"
+                              >
+                              </nz-page-header>
+                            </div>
+                            <div class="d-flex align-items-center">
+                              <nz-tag
+                                [nzColor]="
+                                  (checkInformation('personalInformation', [
+                                    'title',
+                                    'firstName',
+                                    'lastName',
+                                    'gender',
+                                    'dateOfBirth',
+                                    'mobileNumber',
+                                    'emailAddress',
+                                    'address',
+                                  ]) && applicationState.registrarData)
+                                    ? 'green'
+                                    : 'yellow'
+                                "
+                                [nzBordered]="false"
+                                >{{
+                                  (checkInformation('personalInformation', [
+                                    'title',
+                                    'firstName',
+                                    'lastName',
+                                    'gender',
+                                    'dateOfBirth',
+                                    'mobileNumber',
+                                    'emailAddress',
+                                    'address',
+                                  ]) && applicationState.registrarData)
+                                    ? "Complete"
+                                    : "Pending"
+                                }}</nz-tag
+                              >
+                            </div>
+                          </div>
+                          <div class="d-flex">
+                            <div><span class="required-field">*</span></div>
+                            
+                            <div>
+                              
+                              <nz-input-group
+                              nzSearch
+                              [nzAddOnAfter]="suffixIconButton"
+                            >
+                              <input
+                                type="text"
+                                nz-input
+                                placeholder="Enter Your ID Number"
+                                [(ngModel)]="
+                                  insuranceApplicationForm.personalInformation.idNumber
+                                "
+                                [disabled]="
+                                 applicationState.registrarData"
+                              />
+                            </nz-input-group>
+                            <ng-template #suffixIconButton>
+                              <button
+                              [nzLoading]="queryRegistrarLoader"
+                                nz-button
+                                nzType="primary"
+                                nzSearch
+                                (click)="getRegistrarData()"
+                                [disabled]="
+                                  insuranceApplicationForm.personalInformation.idNumber ==
+                                  ''
+                                "
+                              >
+                                Submit
+                                <span nz-icon nzType="sync"></span>
+                              </button>
+                            </ng-template>
+                            </div>
+                            <div class="ms-3">
+                              <button
+                                nz-button
+                                nzType="primary"
+                                nzSearch
+                                (click)="restartEntries()"
+                                [disabled]="
+                                  (insuranceApplicationForm.personalInformation.idNumber ==
+                                  '') || (insuranceApplicationForm.personalInformation.idNumber !== '' && !this.applicationState.registrarData)
+                                "
+                              >
+                                Restart
+                                <span nz-icon nzType="sync"></span>
+                              </button>
+                            </div>
+                            
+                          </div>
+                          <!-- Personal Information Entering -->
+                          @if (applicationState.registrarData) {
+                            <div class="mt-3">
+                              <div class="d-flex">
+                                <div>
+                                  <nz-page-header
+                                    nzTitle="Personal Details"
+                                    nzSubtitle="Please complete the form below"
+                                  >
+                                  </nz-page-header>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                  <nz-tag
+                                    [nzColor]="
+                                      checkInformation('personalInformation', [
+                                        '',
+                                      ])
+                                        ? 'green'
+                                        : 'yellow'
+                                    "
+                                    [nzBordered]="false"
+                                    >{{
+                                      checkInformation("personalInformation", [
+                                        "",
+                                      ])
+                                        ? "Complete"
+                                        : "Pending"
+                                    }}</nz-tag
+                                  >
+                                </div>
+                              </div>
+      
+                              <div>
+                                <div class="row">
+                                  <div class="col-md-2 d-flex">
+                                    <span class="required-field">*</span>
+                                    <nz-select
+                                      nzPlaceHolder="Title"
+                                      [(ngModel)]="
+                                        insuranceApplicationForm.personalInformation.title
+                                      "
+                                    >
+                                      <nz-option
+                                      *ngFor="let title of title"
+                                        [nzValue]="title"
+                                        [nzLabel]="title"
+                                      ></nz-option>
+                                    </nz-select>
+                                  </div>
+                                  <div class="col-md-10">
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <nz-input-group>
+                                          <input
+                                          [disabled]="disableRegistrarInputs"
+                                            placeholder="First Name"
+                                            type="text"
+                                            nz-input
+                                            [(ngModel)]="
+                                              insuranceApplicationForm.personalInformation
+                                                .firstName
+                                            "
+                                          />
+                                        </nz-input-group>
+                                      </div>
+      
+                                      <div class="col-md-4">
+                                        <nz-input-group>
+                                          <input
+                                          [disabled]="disableRegistrarInputs"
+                                            placeholder="Last Name"
+                                            type="text"
+                                            nz-input
+                                            [(ngModel)]="
+                                              insuranceApplicationForm.personalInformation
+                                                .lastName
+                                            "
+                                          />
+                                        </nz-input-group>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row mt-3">
+                                  <div class="col-md-2">
+                                    <nz-select
+                                          nzShowSearch
+                                          nzAllowClear
+                                          nzPlaceHolder="Gender"
+                                          [nzDisabled]="disableRegistrarInputs"
+                                          [(ngModel)]="
+                                            insuranceApplicationForm.personalInformation
+                                              .gender
+                                          "
+                                        >
+                                          <nz-option
+                                            *ngFor="let option of gender"
+                                            [nzLabel]="option"
+                                            [nzValue]="option"
+                                          ></nz-option>
+                                        </nz-select>
+                                  </div>
+                                  <div class="col-md-10">
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <nz-date-picker
+                                        [nzDisabled]="disableRegistrarInputs"
+                                          [(ngModel)]="
+                                            dateOfBirthDisplay
+                                          "
+                                        ></nz-date-picker>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-4 d-flex">
+                                        <span class="required-field">*</span>
+                                        <div class="d-flex flex-column">
+                                          <div>
+                                            <nz-input-group>
+                                              <input
+                                                placeholder="Mobile Number"
+                                                type="text"
+                                                nz-input
+                                                [(ngModel)]="
+                                                  insuranceApplicationForm.personalInformation.mobileNumber
+                                                "
+                                              />
+                                            </nz-input-group>
+                                          </div>
+                                          <div style="font-size: 12px;color: rgba(0, 0, 0, 0.45);font-style: italic;">
+                                            Enter your mobile number using this format: 07********
+                                          </div>
+                                        </div>
+                                        
+                                      
+                                      </div>
+                                      <div class="col-md-4 d-flex">
+                                        <nz-input-group>
+                                          <input
+                                            placeholder="Email Address"
+                                            type="email"
+                                            nz-input
+                                            [(ngModel)]="
+                                              insuranceApplicationForm.personalInformation.emailAddress
+                                            "
+                                          />
+                                        </nz-input-group>
+                                      </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12 d-flex">
+                                        <span class="required-field">*</span>
+                                        <div class="d-flex flex-column">
+                                          <div>
+                                            <nz-input-group>
+                                              <input
+                                                placeholder="Home Address"
+                                                type="text"
+                                                nz-input
+                                                [(ngModel)]="
+                                                  insuranceApplicationForm.personalInformation.address
+                                                "
+                                              />
+                                            </nz-input-group>
+                                          </div>
+                                        </div>
+                                        
+                                      
+                                      </div>
+                                </div>
+                              </div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+                    }
+                    @if (current == 1) {
+                      <div>
+                        <div>
+                          <div class="d-flex">
+                            <div>
+                              <nz-page-header
+                                nzTitle="Product Information"
+                                nzSubtitle="Please details about the product you want to insure"
+                              >
+                              </nz-page-header>
+                            </div>
+                            <div class="d-flex align-items-center">
+                              <nz-tag
+                                [nzColor]="
+                                  checkInformation('productInformation', [
+                                  ''
+                                  ])
+                                    ? 'green'
+                                    : 'yellow'
+                                "
+                                [nzBordered]="false"
+                                >{{
+                                  checkInformation('productInformation', [
+                                    ''
+                                  ])
+                                    ? "Complete"
+                                    : "Pending"
+                                }}</nz-tag
+                              >
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4 d-flex">
+                              <span class="required-field">*</span>
+                              <div class="d-flex flex-column">
+                                <div>
+                                  <nz-input-group>
+                                    <input
+                                      placeholder="Insurance Product"
+                                      type="text"
+                                      nz-input
+                                      [(ngModel)]="
+                                        insuranceApplicationForm.productInformation.insuranceProduct
+                                      "
+                                    />
+                                  </nz-input-group>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 d-flex">
+                              <nz-input-group>
+                                <input
+                                  placeholder="Sum Insured"
+                                  type="email"
+                                  nz-input
+                                  [(ngModel)]="
+                                    insuranceApplicationForm.productInformation.sumInsured
+                                  "
+                                />
+                              </nz-input-group>
+                            </div>
+                            <div class="col-md-4"></div>
+                          </div>
+                        </div>
+                        <!-- Address -->
+                        <div class="row mt-3">
+                            <div class="col-md-4 d-flex">
+                                <span class="required-field">*</span>
+                                <nz-upload
+                                  nzType="drag"
+                                  [nzMultiple]="false"
+                                  [(nzFileList)]="productFileList"
+                                  [nzBeforeUpload]="checkProductUploadFile"
+                                >
+                                  <p class="ant-upload-drag-icon">
+                                    <span nz-icon>
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="48"
+                                        height="48"
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <rect width="24" height="24" fill="none" />
+                                        <g
+                                          fill="none"
+                                          stroke="currentColor"
+                                          stroke-width="1.5"
+                                        >
+                                          <circle cx="9" cy="9" r="2" />
+                                          <path
+                                            d="M13 15c0 1.105 0 2-4 2s-4-.895-4-2s1.79-2 4-2s4 .895 4 2Z"
+                                          />
+                                          <path
+                                            d="M2 12c0-3.771 0-5.657 1.172-6.828S6.229 4 10 4h4c3.771 0 5.657 0 6.828 1.172S22 8.229 22 12s0 5.657-1.172 6.828S17.771 20 14 20h-4c-3.771 0-5.657 0-6.828-1.172S2 15.771 2 12Z"
+                                          />
+                                          <path
+                                            stroke-linecap="round"
+                                            d="M19 12h-4m4-3h-5m5 6h-3"
+                                          />
+                                        </g></svg
+                                    ></span>
+                                  </p>
+                                  <p class="ant-upload-text">Product</p>
+                                  <p class="ant-upload-hint">
+                                    Upload photos of the product you want to have insured
+                                  </p>
+                                </nz-upload>
+                              </div>
+                        </div>
+                      </div>
+                    }
+                    @if (current == 2) {
+                      <div>Quotation</div>
+                    }
+                    @if (current ==3) {
+                      <div class="disclaimer">
+                        <h5 style="font-weight: 900;">Declaration of Accuracy of Information</h5>
+                        <p>By submitting this form, I declare that the information in this application is accurate. I acknowledge that providing misleading or untrue information may lead to my application being rejected.</p>
+
+                        
+                      </div>
+                      
+                    }
+                  </div>
+                  <div>
+                    <div class="steps-action row" style="padding: 10px 0">
+                      <div class="col d-flex justify-content-start">
+                        <afc-button
+                          [label]="'Previous'"
+                          [disableButton]="!(current > 0)"
+                          [loading]="false"
+                          (buttonClick)="pre()"
+                          [style]="'cancel'"
+                          [size]="'sm'"
+                        />
+                      </div>
+                      <div class="col d-flex justify-content-end">
+                        <!-- <afc-button
+                          nz-tooltip [nzTooltipTitle]="
+                          (current == 0 && !checkInformation('personalInformation', ['middleName']) ? 'Please enter the required Personal Information' : '') || 
+                          (current == 1 && !checkInformation('contactDetails', ['emailAddress', 'preferSms', 'useAsPermanentAddress', 'preferredMethodOfContact', 'allowSmsAlerts'])? 'Please enter the required Contact Information' : '') ||
+                          (current == 2 && !checkInformation('employmentDetails', ['productCode', 'accountType', 'accountSubType'])? 'Please enter the required Information' : '') ||
+                          (current == 3 && !checkDocuments()? 'Please upload the required documents' : '')
+                          "
+                          *ngIf="current < 4"
+                          [label]="'Next'"
+                          [disableButton]="(
+                            current == 0 && !checkInformation('personalInformation', ['middleName']) || 
+                            current == 1 && !checkInformation('contactDetails', ['emailAddress', 'preferSms', 'useAsPermanentAddress', 'preferredMethodOfContact', 'allowSmsAlerts']) ||
+                            current == 2 && !checkInformation('employmentDetails', ['productCode', 'accountType', 'accountSubType']) ||
+                            current == 3 && !checkDocuments()
+                            )"
+                          [loading]="false"
+                          (buttonClick)="next()"
+                          [style]="'cancel'"
+                          [size]="'sm'"
+                        /> -->
+
+                        <afc-button
+                          nz-tooltip
+                          *ngIf="current < 3"
+                          [label]="'Next'"
+                          [disableButton]="false"
+                          [loading]="false"
+                          (buttonClick)="next()"
+                          [style]="'cancel'"
+                          [size]="'sm'"
+                        />
+      
+                        <afc-button
+                        nz-tooltip [nzTooltipTitle]="(!isAcknowledged) ? 'You can only proceed by acknowledging the disclaimer' : ''"
+                          *ngIf="current === 4"
+                          [label]="'Submit'"
+                          [disableButton]="!isAcknowledged"
+                          [loading]="insureProductLoader"
+                          (buttonClick)="done()"
+                          [style]="'primary'"
+                          [size]="'sm'"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                
+                
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        <!-- [disableButton]="current == 0 && !checkPersonalInformation()" -->
+      </div>
+    </div>
+  </div>
+
+  <nz-modal
+      [(nzVisible)]="isLeaveVisible"
+      [nzTitle]="modalLeaveTitle"
+      [nzContent]="modalLeaveContent"
+      [nzFooter]="modalLeaveFooter"
+      (nzOnCancel)="handleLeaveCancel()"
+    >
+      <ng-template #modalLeaveTitle></ng-template>
+
+      <ng-template #modalLeaveContent>
+        <div class="d-flex justify-content-center">
+          <h3>Oh No!</h3>
+        </div>
+        <div class="d-flex justify-content-center">
+          <img src="/assets/images/illustrations/sad-modal.svg" alt="" style="max-width: 300px;">
+        </div>
+        <div class="d-flex justify-content-center" style="text-align: center;font-size: 18px;color: #989898;">
+          <p>We hate to see you leave. Please get in touch and let us know how we can assist.</p>
+        </div>
+        <div class="mt-3 d-flex justify-content-center">
+          <afc-button
+        (click)="handleLeaveCancel()"
+                            [label]="'Leave'"
+                            [loading]="false"
+                            [style]="'gradient'"
+                            [size]="'sm'"
+                          />
+        </div>
+      </ng-template>
+
+      <ng-template #modalLeaveFooter>
+        
+      </ng-template>
+    </nz-modal>
+
+<nz-modal
+      [(nzVisible)]="isVisible"
+      [nzTitle]="modalTitle"
+      [nzContent]="modalContent"
+      [nzFooter]="modalFooter"
+      (nzOnCancel)="handleCancel()"
+    >
+      <ng-template #modalTitle></ng-template>
+
+      <ng-template #modalContent>
+        <div class="documents-notice">
+          <h3>Welcome to AFC Insurace!</h3>
+          <p>To begin the process of getting your product insured, please ensure you have the following:</p>
+          <ul>
+            <li>Pictures of the item to be insured</li>
+          </ul>
+          <p>Should you require any assistance, please contact us on <b>customersupport<span>{{'@'}}</span>afcholdings.co.zw</b>.</p>
+          <p>We look forward to welcoming you into the AFC Insurance family!</p>
+        </div>
+
+        <div class="mt-3">
+          <label
+                                nz-checkbox
+                                [(ngModel)]="isTCAcknowledged"
+                                >I have read and agree to the</label
+                              > <span class="t-c-click" (click)="open()">Terms and Conditions</span>
+        </div>
+
+        <div class="mt-3">
+          <afc-button
+          nz-tooltip [nzTooltipTitle]="!isTCAcknowledged ? 'You need to accept the terms and conditions to continue' : ''"
+                          [label]="'Start'"
+                          [disableButton]="!isTCAcknowledged"
+                          [loading]="false"
+                          (buttonClick)="beginInsuranceApplicationProcess()"
+                          [style]="'gradient'"
+                          [size]="'sm'"
+                        />
+        </div>
+        
+      </ng-template>
+
+      <ng-template #modalFooter></ng-template>
+    </nz-modal>
+
+    <nz-modal
+      [(nzVisible)]="isAgeVisible"
+      [nzTitle]="modalAgeTitle"
+      [nzContent]="modalAgeContent"
+      [nzFooter]="modalAgeFooter"
+      (nzOnCancel)="handleAgeCancel()"
+    >
+      <ng-template #modalAgeTitle></ng-template>
+
+      <ng-template #modalAgeContent>
+        <div class="d-flex justify-content-center">
+          <h3>Oh No!</h3>
+        </div>
+        <div class="d-flex justify-content-center">
+          <img src="/assets/images/illustrations/age-limit.svg" alt="" style="max-width: 300px;">
+        </div>
+        <div class="d-flex justify-content-center" style="text-align: center;font-size: 18px;color: #989898;">
+          <p>Sorry, you must be 18 years or older to open an account with us.</p>
+        </div>
+        <div class="mt-3 d-flex justify-content-center">
+          <afc-button
+        (click)="handleLeaveCancel()"
+                            [label]="'Leave'"
+                            [loading]="false"
+                            [style]="'gradient'"
+                            [size]="'sm'"
+                          />
+        </div>
+      </ng-template>
+
+      <ng-template #modalAgeFooter>
+        
+      </ng-template>
+    </nz-modal>
+
+    <nz-drawer
+    [nzSize]="drawerSize"
+      (nzOnClose)="close()"
+      [nzVisible]="tcVisible"
+      nzPlacement="right"
+      nzTitle="Terms and Conditions"
+      (nzOnClose)="close()"
+    >
+      <ng-container *nzDrawerContent>
+        <div class="mb-3">
+          <button nz-button nzType="primary" (click)="generatePDF()">
+            <span nz-icon nzType="file-pdf"></span>
+            Print
+          </button>
+        </div>
+        <div class="terms-and-conditions" id="terms-and-conditions" style="padding: 20px;">
+          <h4>AFC Commercial Bank Account Opening Terms and Conditions</h4>
+          <h5>Declaration by Account Applicant</h5>
+          <p>I/We certify that the information given in support of this application is true and correct and I/We understand that in the event of any information provided being inaccurate, the Bank reserves the right to decline this application without giving reasons thereof. I/We agree to be liable for any overdraft or debt which the bank may permit on this account or any other accounts in my/our name (s). I/We understand and agree to abide by the bank’s minimum balance requirements and accept the right of the bank to compulsorily close my/our account without warning if the account is not conducted satisfactorily. I/We understand that any erroneous claim that appears on a bank Statement must be made in writing 30 days of date of such a statement. I/We agree that I/We have read, understood and accept the terms and conditions of the account and agree to be bound by them.</p>
+          <h4>TERMS AND CONDITIONS</h4>
+          <h5>AFC COMMERCIAL BANK Account</h5>
+          <ol>
+            <li>Monthly maintenance fees may vary depending on the type of account.</li>
+            <li>All transactions may be subject to transaction fees and charges as published in our business conditions periodically.</li>
+            <li>You may be requested by the Bank to update your KYC information as and when necessary.</li>
+            <li>The Bank may make enquiries about your financial position and credit record from third party credit bureaus.</li>
+            <li>Customers can exercise their rights to be informed, and to access their information, complain, and object to processing of their information, correction, erasure and withdraw consent regarding processing of their personally identifiable information, within the confines of Zimbabwean laws. All requests must be made in writing.</li>
+            <li>The Bank reserves the right to close your account/s due to inactivity, illegal conduct or non-compliance with the Terms and Conditions of this account.</li>
+          </ol>
+          <h5>AFC COMMERCIAL BANK ATM Card</h5>
+          <p>I agree to the following conditions:</p>
+          <ol>
+            <li>I/ We agree to use the card subject to the maximum limit set by the bank.</li>
+            <li>I/We authorise the bank to debit from my account unspecified amounts due to the bank each day in full payment of all indebtness </li>
+            <li>The bank reserves the right to withdraw / cancel or refuse any Card transaction without giving prior notice.</li>
+            <li>In the event of Card being lost / stolen, I will notify the bank immediately and shall not make the bank liable for any loss made thereof.</li>
+            <li>The Card remains the property of the bank and shall use it specifically for the intended purpose as set out by the Bank.</li>
+          </ol>
+          <h5>AFC COMMERCIAL BANK SMS Alert</h5>
+          <ol>
+            <li>The instruction and / or procedures of the Bank shall bind the client.</li>
+            <li>While AFC Commercial Bank will take due care to make this service available at all times but in the unlikely event of any reasons which are beyond the Bank’s control, including but not limited to any technical difficulty, which results in outage of the services and / or loss of any transmission of messages,  AFC Commercial Bank shall not liable.</li>
+            <li>The client hereby irrevocably agrees to hold free and harmless the Bank and indemnify the Bank against all actions, claims, damages, liabilities, losses, , costs and expenses of whatever nature that may result due to the Bank providing the services and in actioning any instructions from the regulator or statutory bodies.</li>
+            <li>The Client hereby indemnifies the Bank from any liability including claims for damages that may arise in the event that the Bank erroneously communicates with client with regard to any credit or debits on client’s accounts.</li>
+            <li>AFC Commercial Bank will transmit the SMS Alerts notifications on time to the Service Provider but delivery of the data to the Subscriber’s equipment depends on the Service Provider locally and abroad and the Bank cannot be held responsible for non-receipt or erroneous data received or receipt of the messages at odd times and the consequences arising there from.</li>
+            <li>AFC Commercial Bank is not liable for any breach of confidentiality of any data/ information sent to the Subscriber’s equipment. The client acknowledges that he / she is solely responsible for protecting his/her mobile phone/ device and privacy.</li>
+            <li>In case of change / disconnection/ loss of Client’s mobile phone number (s) or equipment, the Client undertakes to notify the Bank in writing immediately of such instance to protect the interest of all parties. The Subscriber shall indemnify the Bank for all loss or damage on account of Client’s failure to notify the Bank of the change / disconnection of Subscriber’s mobile phone number (s).</li>
+            <li>The Bank has the right to withdraw any or all of the facilities under the service, without reason, at any time after serving a notice to the Subscriber by ordinary post or via message to the Client’s equipment.</li>
+          </ol>
+
+          <h4>AFC Commercial Bank Internet Banking</h4>
+          <h5>i.	Definitions</h5>
+          <p>In these terms and conditions:</p>
+          <p><b>“Account”</b> means any account by the Bank in the name of an Internet Banking Customer on which the customer is authorised to operate through the Internet Banking Facility.</p>
+          <p><b>“Internet Banking Facility”</b> means banking delivery channel that uses Internet technology.</p>
+          <p>Internet Banking Customer” means an AFC Commercial Bank customer who has authorised the Bank to accept Internet-based transactions by the said customer’s accounts and <b>”We”</b>, <b>“I”</b> and <b>“our”</b> denote such customer.</p>
+          <p><b>“The Bank”</b> means AFC Commercial Bank</p>
+
+          <h5>ii.	Copyright and trademarks</h5>
+          <p>Except as otherwise expressly stated herein, the copyright and all other intellectual property rights in the contents of the website, including but not limited to all design, text, sound recordings, images or links, are the property of the Bank and, as such they may not be reproduced, transmitted, published, performed, broadcast, stored, adapted, distributed, displayed, licensed, altered, hyperlinked or otherwise used in whole or in part in any manner without prior written consent of the Bank.</p>
+
+          <h5>iii.	Deed use of Internet Banking</h5>
+          <p>I / We agree that all instructions issued by me/ us to the Bank shall be deemed irrevocable and any alleged fraudulent instructions shall be deemed to be my responsibility unless negligence on the part of the Bank is proved.</p>
+
+          <h5>iv.	Indemnity</h5>
+          <p>We hereby indemnify and hold the Bank harmless against all damages, losses, expenses and costs, including legal costs, suffered or incurred by the Bank in connection with or arising from:</p>
+          <ol>
+            <li>Our/ my access to the website and / or use the online services: or</li>
+            <li>Any other party’s access to the website and / or use of the online services using my/our USER ID and / or login password, or.</li>
+            <li>Our / my breach of any of these terms and conditions of access where any party was able to access the website and / or use the online services by using our / my USER ID and / or login password.</li>
+          </ol>
+          <h5>v.	Time Frames</h5>
+          <p>I / We acknowledge that transactions that use the Real Time Gross Settlement (RTGS) form of settlement must be done and authorised before 11.00 hours so as to ensure a smooth flow in transmission on the RTGS platform.</p>
+          <h5>vi.	Payment of bills</h5>
+          <p>All instructions for the payment of bills should be effected at least 2 working days before their due dates so as to allow a smooth flow in transmission to their intended payees.</p>
+          <h5>vii.	Charges</h5>
+          <p>Charges imposed by the Bank from time to time shall be payable by the Internet Banking Customer for the provision of the Internet Banking Facility, whether or not the Internet Banking Facility is being used during the period concerned.</p>
+          <h5>viii.	Termination of facility by Bank</h5>
+          <p>We acknowledge further that the Bank may terminate our / my access to the website and / or our use of the online services at any time without notice and without assigning any reason therefore.</p>
+
+        </div>
+      </ng-container>
+    </nz-drawer>

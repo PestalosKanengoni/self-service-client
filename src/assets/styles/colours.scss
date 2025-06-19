@@ -1,0 +1,230 @@
+//  The Corporate Registration Portal uses the Radix-UI Colour System
+
+/*
+
+--RADIX COLOUR SYSTEM GUIDE--
+1 -> App background
+2 -> Subtle background
+3 -> UI element background
+4 -> Hovered UI element background
+5 -> Active / Selected UI element background
+6 -> Subtle borders and separators
+7 -> UI element border and focus rings
+8 -> Hovered UI element border
+9 -> Solid backgrounds
+10 -> Hovered solid backgrounds
+11 -> Low-contrast text
+12 -> High-contrast text
+
+*/
+
+//  Primary Colour
+$primary1: #f5fbee;
+$primary2: #e2f3cb;
+$primary3: #ceeba8;
+$primary4: #bae386;
+$primary5: #a7dc63;
+$primary6: rgb(127, 191, 51);
+$primary7: #7ebe2b;
+$primary8: #679c23;
+$primary9: #50791c;
+$primary10: #395714;
+$primary11: #22340c;
+$primary12: #0b1104;
+
+//  Secondary Colour
+$secondary1: #f0f8f3;
+$secondary2: #d3ebda;
+$secondary3: #b6dec2;
+$secondary4: #99d1a9;
+$secondary5: #7bc391;
+$secondary6: #7bc391;
+$secondary7: #49a163;
+$secondary8: #3c8451;
+$secondary9: #2e663f;
+$secondary10: #21492d;
+$secondary11: #142c1b;
+$secondary12: #070f09;
+
+/*
+  Vue Sax Colours
+ */
+
+$vs-text: rgb(44, 62, 80);
+
+//  Grey
+$vs-grey1: rgb(249, 252, 253);
+$vs-grey2: rgb(244, 247, 248);
+$vs-grey3: rgb(240, 243, 244);
+$vs-grey4: rgb(230, 233, 234);
+
+$vs-primary: rgb(25, 91, 255);
+$vs-warn: rgb(255, 186, 0);
+$vs-danger: rgb(255, 71, 87);
+$vs-success: rgb(70, 201, 58);
+$vs-dark: rgb(30, 30, 30);
+$vs-light: rgb(244, 247, 248);
+$vs-color: rgb(17, 18, 20);
+$vs-background: rgb(255, 255, 255);
+
+$vs-theme-bg: #f4f7f8;
+$vs-theme-color: #2c3e50;
+$vs-theme-layout: #fff;
+$vs-theme-bg2: #eef2f5;
+$vs-theme-code: #3f3d56;
+$vs-theme-code2: #363449;
+$vs-shadow-opacity: 0.05;
+$vs-radius: 20px;
+$vs-zindex-1: 100000;
+$vs-zindex-2: 99000;
+$vs-zindex-3: 98000;
+$vs-zindex-4: 97000;
+$vs-background-opacity: 0.2;
+
+//  Red -> Danger
+$red1: hsl(359, 100%, 99.4%);
+$red2: hsl(359, 100%, 98.6%);
+$red3: hsl(360, 100%, 96.8%);
+$red4: hsl(360, 97.9%, 94.8%);
+$red5: hsl(360, 90.2%, 91.9%);
+$red6: hsl(360, 81.7%, 87.8%);
+$red7: hsl(359, 74.2%, 81.7%);
+$red8: hsl(359, 69.5%, 74.3%);
+$red9: hsl(358, 75%, 59%);
+$red10: hsl(358, 69.4%, 55.2%);
+$red11: hsl(358, 65%, 48.7%);
+$red12: hsl(354, 50%, 14.6%);
+
+//  Amber -> Warning
+$amber1: hsl(39, 70%, 99%);
+$amber2: hsl(40, 100%, 96.5%);
+$amber3: hsl(44, 100%, 91.7%);
+$amber4: hsl(43, 100%, 86.8%);
+$amber5: hsl(42, 100%, 81.8%);
+$amber6: hsl(38, 99.7%, 76.3%);
+$amber7: hsl(36, 86.1%, 67.1%);
+$amber8: hsl(35, 85.2%, 55.1%);
+$amber9: hsl(39, 100%, 57%);
+$amber10: hsl(35, 100%, 55.5%);
+$amber11: hsl(30, 100%, 34%);
+$amber12: hsl(20, 80%, 17%);
+
+//  Green -> Success
+$grass1: hsl(116, 50%, 98.9%);
+$grass2: hsl(120, 60%, 97.1%);
+$grass3: hsl(120, 53.6%, 94.8%);
+$grass4: hsl(121, 47.5%, 91.4%);
+$grass5: hsl(122, 42.6%, 86.5%);
+$grass6: hsl(124, 39%, 79.7%);
+$grass7: hsl(126, 37.1%, 70.2%);
+$grass8: hsl(131, 38.1%, 56.3%);
+$grass9: hsl(131, 41%, 46.5%);
+$grass10: hsl(132, 43.1%, 42.2%);
+$grass11: hsl(133, 50%, 32.5%);
+$grass12: hsl(130, 30%, 14.9%);
+
+//  Blue -> Info
+$blue1: hsl(206, 100%, 99.2%);
+$blue2: hsl(210, 100%, 98%);
+$blue3: hsl(209, 100%, 96.5%);
+$blue4: hsl(210, 98.8%, 94%);
+$blue5: hsl(209, 95%, 90.1%);
+$blue6: hsl(209, 81.2%, 84.5%);
+$blue7: hsl(208, 77.5%, 76.9%);
+$blue8: hsl(206, 81.9%, 65.3%);
+$blue9: hsl(206, 100%, 50%);
+$blue10: hsl(208, 100%, 47.3%);
+$blue11: hsl(211, 100%, 43.2%);
+$blue12: hsl(211, 100%, 15%);
+
+//  OVERLAYS
+
+//  Black Overlay
+$blackA1: hsla(0, 0%, 0%, 0.012);
+$blackA2: hsla(0, 0%, 0%, 0.027);
+$blackA3: hsla(0, 0%, 0%, 0.047);
+$blackA4: hsla(0, 0%, 0%, 0.071);
+$blackA5: hsla(0, 0%, 0%, 0.09);
+$blackA6: hsla(0, 0%, 0%, 0.114);
+$blackA7: hsla(0, 0%, 0%, 0.141);
+$blackA8: hsla(0, 0%, 0%, 0.22);
+$blackA9: hsla(0, 0%, 0%, 0.439);
+$blackA10: hsla(0, 0%, 0%, 0.478);
+$blackA11: hsla(0, 0%, 0%, 0.565);
+$blackA12: hsla(0, 0%, 0%, 0.91);
+
+//  White Overlay
+$whiteA1: hsla(0, 0%, 100%, 0);
+$whiteA2: hsla(0, 0%, 100%, 0.013);
+$whiteA3: hsla(0, 0%, 100%, 0.034);
+$whiteA4: hsla(0, 0%, 100%, 0.056);
+$whiteA5: hsla(0, 0%, 100%, 0.086);
+$whiteA6: hsla(0, 0%, 100%, 0.124);
+$whiteA7: hsla(0, 0%, 100%, 0.176);
+$whiteA8: hsla(0, 0%, 100%, 0.249);
+$whiteA9: hsla(0, 0%, 100%, 0.386);
+$whiteA10: hsla(0, 0%, 100%, 0.446);
+$whiteA11: hsla(0, 0%, 100%, 0.592);
+$whiteA12: hsla(0, 0%, 100%, 0.923);
+
+//  Light Mode Shades
+$backgroundLight: rgb(245, 247, 251);
+$foregroundLight: rgb(255, 255, 255);
+$buttonLight: rgb(232, 239, 245);
+$inputTextLight: rgb(178, 181, 188);
+$fieldLight: rgb(255, 255, 255);
+$fontHeadingLight: rgb(62, 64, 73);
+$paragraphLight: rgb(186, 189, 193);
+
+//  Dark Mode Shades
+$backgroundDark: rgb(30, 41, 62);
+$foregroundDark: rgb(38, 52, 76);
+$buttonDark: rgb(57, 73, 102);
+$inputTextDark: rgb(173, 186, 210);
+$fieldDark: rgb(38, 52, 76);
+$fontHeadingDark: rgb(194, 206, 229);
+$paragraphDark: rgb(144, 159, 183);
+
+$dae-white: #feffff;
+$bgColor_light: rgb(38, 52, 76);
+$bgColor_dark: rgb(30, 41, 62);
+$bgColor_dark_contrast: rgb(38, 52, 76);
+
+$white_alt: rgb(246, 247, 251);
+
+$textColor_light: black;
+$textColor_dark: white;
+
+$borderColor_light: black;
+$borderColor_dark: white;
+
+$afc-gradient: linear-gradient(
+  97.44deg,
+  $primary6 0%,
+  $secondary8 100%
+) !important;
+
+$appBackground_dark: rgb(23, 26, 38);
+$appBackground_light: rgb(249, 247, 250);
+
+// Card
+$appCardBackground_dark: rgb(26, 30, 43);
+$appCardBackground_light: rgb(255, 255, 255);
+
+$appCardHeadingBackground_dark: rgb(33, 38, 52);
+$appCardHeadingBackground_light: rgb(250, 249, 251);
+
+$appCardBorder_dark: #252835;
+$appCardBorder_light: rgb(224, 220, 229);
+
+$appCardBoxShadow_dark: rgb(26, 30, 43);
+$appCardBoxShadow_light: rgb(26, 30, 43);
+
+$appCardHeadingBackgroundColor_dark: #c7c9d9;
+$appCardHeadingBackgroundColor_light: rgb(128, 112, 143);
+
+$appCardInfoBackgroundColor_dark: #fafafc;
+$appCardInfoBackgroundColor_light: #3e3446;
+
+$appAssistiveText_dark: rgb(184 191 209);
+$appAssistiveText_light: #555770;
