@@ -27,7 +27,7 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
     private notification: NzNotificationService,
     private cdr: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver
-  ) { 
+  ) {
     this.breakpointObserver.observe([
       Breakpoints.XSmall, // Phones
       Breakpoints.Small,  // Small tablets
@@ -51,14 +51,33 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.getBranches();
     this.subs.add = this.accountOpeningService.queryRegistrarResponse$.subscribe((res: any) => {
       this.onQueryRegistrarResponse(res);
     });
-
     this.subs.add = this.accountOpeningService.createNewRecordResponse$.subscribe((res: any) => {
       this.onCreateNewRecordResponse(res);
     });
+    this.subs.add = this.accountOpeningService.getBranchesResponse$.subscribe((res: any) => {
+      this.onGetBranchesResponse(res);
+    });
   }
+
+  getBranchesLoader: boolean = false;
+  getBranches() {
+    this.getBranchesLoader = true;
+    this.accountOpeningService.getBranches();
+  }
+
+  onGetBranchesResponse(res: any){
+    console.log(res);
+    if (res.success == true) {
+      this.idcBranches=res.data;
+    }
+    this.getBranchesLoader = false;
+  }
+
+  idcBranches?: any;
 
   onCreateNewRecordResponse(res: any) {
     console.log(res);
@@ -79,6 +98,10 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
       key => this.createAccountForm.personalInformation[key as keyof typeof this.createAccountForm.personalInformation] = ''
     );
     this.createAccountForm.personalInformation.pidType = 'ID';
+    this.title = [
+      "DR",
+      "REV"
+    ]
     this.applicationState.registrarData = false;
   }
 
@@ -100,7 +123,7 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
 
   onQueryRegistrarResponse(res: any) {
     console.log(res);
-  
+
     if (res.success) {
       if (res.data.Status == "A") {
         // Assuming dateOfBirth is a string in the format 'YYYY-MM-DD' (adjust if necessary)
@@ -120,24 +143,24 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
           this.title = [...this.title, "MRS", "MISS", "MS"];
         }
 
-        
-  
+
+
         if (!dateOfBirth) {
           this.notification.create('error', 'Error', 'Invalid date of birth');
           return;
         }
-  
+
         // Calculate age
         const age = this.calculateAge(dateOfBirth);
         console.log('Age:', age);
-  
+
         // If age is less than 18, prevent them from proceeding
         if (age < 18) {
           this.queryRegistrarLoader = false;
           this.isAgeVisible = true;
           return;  // Stop further execution
         }
-  
+
         // Proceed with registration if age is 18 or older
         this.registrarResponse = res.data;
         this.applicationState.registrarData = true;
@@ -150,21 +173,21 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
     }
     this.queryRegistrarLoader = false;
   }
-  
+
   // Helper function to calculate age
   calculateAge(dateOfBirth: Date): number {
     const today = new Date();
     let age = today.getFullYear() - dateOfBirth.getFullYear();
     const monthDifference = today.getMonth() - dateOfBirth.getMonth();
-    
+
     // If birthday hasn't occurred yet this year, subtract 1 from age
     if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dateOfBirth.getDate())) {
       age--;
     }
-    
+
     return age;
   }
-  
+
   // Helper function to parse the date string (DD/MM/YYYY) into a Date object
   parseDate(dateString: string): Date | null {
     // Split the date string by '/' to get day, month, and year
@@ -190,8 +213,8 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
     return parsedDate;
   }
 
-  
-  
+
+
 
   processRegistrarData() {
     this.createAccountForm.personalInformation.firstName = this.registrarResponse.FirstName;
@@ -215,7 +238,7 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
   removeSpecialCharacters(str: any) {
     return str.replace(/[^a-zA-Z0-9]/g, '');
   }
-  
+
 
   processGender(str: any) {
     if (str == 'M') {
@@ -282,7 +305,7 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
     this.current -= 1;
   }
 
-  next(): void {
+  async next() {
     if(this.current == 1) {
       const isValid = this.validateMobileNumber(this.createAccountForm.contactDetails.mobileNumber);
       if (!isValid) {
@@ -295,7 +318,7 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
         return; // Stop execution if mobile number is invalid
       }
       if (
-        this.normalizePhoneNumber(this.createAccountForm.contactDetails.mobileNumber) === 
+        this.normalizePhoneNumber(this.createAccountForm.contactDetails.mobileNumber) ===
         this.normalizePhoneNumber(this.createAccountForm.contactDetails.contactPersonMobileNumber)
       ) {
         this.notification.create('error', 'Error', 'Your phone number must be different from the next of kin phone number');
@@ -314,9 +337,9 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
         this.notification.create('error', 'Error', 'You need to upload your proof of income')
         return;
       } else{
-        this.uploadAttachments();
+        await this.uploadAttachments();
       }
-      
+
     }
     this.current += 1;
     console.log(this.createAccountForm.employmentDetails)
@@ -334,8 +357,8 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
       },
       branch: this.createAccountForm.contactDetails.branch, // Move branch to top level
     };
-    
-    
+
+
     console.log(newCreateAccountForm);
     this.accountOpeningService.createNewRecord(newCreateAccountForm, 'account-opening');
   }
@@ -389,49 +412,56 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
   async uploadAttachments() {
     console.log(this.idFileList);
     console.log(this.profilePhotoFileList)
-  
+
     try {
       const idDocs = await this.processUpload(this.idFileList);
       const profileDocs = await this.processUpload(this.profilePhotoFileList);
       const signatureDocs = await this.processUpload(this.signatureFileList);
       const proofOfResDocs = await this.processUpload(this.proofOfResFileList);
       const otherDocs = await this.processUpload(this.otherFileList);
-  
+
       this.createAccountForm.documents.id = idDocs.length > 0 ? idDocs[0].id : ''; // Extract first item as string
       this.createAccountForm.documents.profile = profileDocs.length > 0 ? profileDocs[0].id : '';
       this.createAccountForm.documents.signature = signatureDocs.length > 0 ? signatureDocs[0].id : '';
       this.createAccountForm.documents.proofOfRes = proofOfResDocs.length > 0 ? proofOfResDocs[0].id : '';
       this.createAccountForm.documents.otherDocuments = otherDocs.map((item) => item.id); // Keep as an array
-  
+
       console.log("-------------------");
       console.log(this.createAccountForm.documents);
+      this.documentsUploadDone = true;
     } catch (error) {
       console.error("Error uploading attachments:", error);
     }
   }
 
+  documentsUploadDone: boolean = false;
+
   cancelAccountOpening(){
     this.navigateTo('home');
   }
 
-  
 
-  
+
+
 
   processUpload(fileList: any): Promise<any[]> {
     const uploadPromises: Promise<any>[] = [];
-  
+
     fileList.forEach((file: any) => {
       const formData: FormData = new FormData();
       formData.append("files", file);
-      formData.append("service", "ACCOUNT-OPEN");
+      formData.append("owner", "SelfService");
+      formData.append("operation", "UPLOAD");
+      formData.append("path", "account-opening, " + this.createAccountForm.personalInformation.pidNumber);
+      // formData.append("data", "");
       formData.append("temporary", "false");
-  
+      formData.append("namePrefix", this.createAccountForm.personalInformation.pidNumber);
+
       const uploadPromise = new Promise<any>((resolve, reject) => {
         this.accountOpeningService.uploadFile(formData).subscribe({
           next: (response) => {
             console.log(`Upload successful`, response);
-  
+
             // Ensure response.data is properly extracted
             if (response && response.data) {
               resolve(response.data); // Resolve with data
@@ -446,15 +476,15 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
           },
         });
       });
-  
+
       uploadPromises.push(uploadPromise);
     });
-  
+
     return Promise.all(uploadPromises).then((results) => {
       return results.flat(); // Flatten in case each upload returns multiple items
     });
   }
-  
+
 
 
   completeUploadPromises(uploadPromises: any) {
@@ -476,10 +506,73 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
   middleName: string = '';
   lastName: string = '';
 
+  // getRegistrarData() {
+  //   this.createAccountForm.personalInformation.pidNumber = this.removeSpecialCharacters(this.createAccountForm.personalInformation.pidNumber)
+  //   this.queryRegistrarLoader = true;
+  //   this.accountOpeningService.queryRegistrar(this.removeSpecialCharacters(this.createAccountForm.personalInformation.pidNumber));
+  // }
+
   getRegistrarData() {
-    this.createAccountForm.personalInformation.pidNumber = this.removeSpecialCharacters(this.createAccountForm.personalInformation.pidNumber)
-    this.queryRegistrarLoader = true;
-    this.accountOpeningService.queryRegistrar(this.removeSpecialCharacters(this.createAccountForm.personalInformation.pidNumber));
+    if (MOCK_REGISTRAR) {
+      this.onMockRegistrar()
+    } else {
+        this.createAccountForm.personalInformation.pidNumber = this.removeSpecialCharacters(this.createAccountForm.personalInformation.pidNumber)
+        this.queryRegistrarLoader = true;
+        this.accountOpeningService.queryRegistrar(this.removeSpecialCharacters(this.createAccountForm.personalInformation.pidNumber));
+    }
+  }
+
+  onMockRegistrar() {
+
+    let res = {
+      Status: "A",
+      Surname: "DOE",
+      FirstName: "JOHN",
+      Sex: "M",
+      DateOfBirth: "10/11/1984",
+      DateOfDeath: "",
+      BirthPlace: "Checheche",
+      NationalId: "63159352K23"
+    }
+
+    // Assuming dateOfBirth is a string in the format 'YYYY-MM-DD' (adjust if necessary)
+    const dateOfBirth = this.parseDate(res.DateOfBirth);  // Convert to Date object
+    // const dateOfBirth = this.parseDate("23/05/2010");  // Convert to Date object
+    console.log('Date of birth:', res.DateOfBirth);
+    console.log('Date of birth:', dateOfBirth);
+
+    if(res.Sex == 'M') {
+      console.log("MALE")
+      this.title = [...this.title, "MR"];
+    }
+    if(res.Sex == 'F') {
+      console.log("FEMALE")
+      this.title = [...this.title, "MRS", "MISS", "MS"];
+    }
+
+
+
+    if (!dateOfBirth) {
+      this.notification.create('error', 'Error', 'Invalid date of birth');
+      return;
+    }
+
+    // Calculate age
+    const age = this.calculateAge(dateOfBirth);
+    console.log('Age:', age);
+
+    // If age is less than 18, prevent them from proceeding
+    if (age < 18) {
+      this.queryRegistrarLoader = false;
+      this.isAgeVisible = true;
+      return;  // Stop further execution
+    }
+
+    // Proceed with registration if age is 18 or older
+    this.registrarResponse = res;
+    this.applicationState.registrarData = true;
+    this.processRegistrarData();
+    this.queryRegistrarLoader = false;
   }
 
   disabledDate = (current: Date): boolean =>
@@ -494,26 +587,26 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
     const mobileNumberRegex = /^(2637\d{8}|07\d{8})$/;
     return mobileNumberRegex.test(mobile);
   }
-  
-    
-  
+
+
+
 
 
   convertToDate(dateString: string): Date {
     if (!dateString) return new Date(); // Fallback to today if input is empty
-  
+
     const parts = dateString.split('/'); // Splitting "DD/MM/YYYY"
     if (parts.length === 3) {
       const day = parseInt(parts[0], 10);
       const month = parseInt(parts[1], 10) - 1; // Months are 0-based (0 = Jan, 11 = Dec)
       const year = parseInt(parts[2], 10);
-  
+
       return new Date(year, month, day);
     }
-  
+
     return new Date(); // Fallback in case of an incorrect format
   }
-  
+
 
   applicationState = {
     sectionStates: {
@@ -580,14 +673,71 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
     },
   };
 
+  // processAccountType() {
+  //   if (this.createAccountForm.employmentDetails.currency == 'ZWG') {
+  //       this.createAccountForm.employmentDetails.accountType = 'CAI - ZiG CAI'
+  //   }
+  //   if (this.createAccountForm.employmentDetails.currency == 'USD') {
+  //     this.createAccountForm.employmentDetails.accountType = 'FXCAI - FCA CAI'
+  // }
+  // }
+
   processAccountType() {
-    if (this.createAccountForm.employmentDetails.currency == 'ZWG') {
-        this.createAccountForm.employmentDetails.accountType = 'CAI - ZiG CAI'
+    const currency = this.createAccountForm.employmentDetails.currency;
+
+    // default values
+    let productCode = '';
+    let accountTypeCode = '';
+    let accountSubType = '';
+
+    if (currency === 'ZWG' && this.selectedProductCode === 'Current Account') {
+      // Mapping 1
+      productCode = 'Current Individual';
+      accountTypeCode = 'CAI- ZIG CAI';
+      accountSubType = 'Current Individual';
+    } else if ((currency === 'USD' || currency === 'ZAR') && this.selectedProductCode === 'Current Account') {
+      // Mapping 2
+      productCode = 'FCA Current Individual';
+      accountTypeCode = 'FXCAI- FCA CAI';
+      accountSubType = 'Current Account Individual';
+    } else if (currency === 'ZWG' && this.selectedProductCode === 'Savings Account') {
+      // Mapping 3
+      productCode = 'Savings Account Individual';
+      accountTypeCode = 'SAI- SAI';
+      accountSubType = 'Savings Account Individual';
+    } else if ((currency === 'USD' || currency === 'ZAR') && this.selectedProductCode === 'Savings Account') {
+      // Mapping 4
+      productCode = 'FCA Savings Account Individual';
+      accountTypeCode = 'FCSAI- FCA SAI';
+      accountSubType = 'FCA Individual Savings Account';
+    } else if (currency === 'ZWG' && this.selectedProductCode === 'Low Cost Account') {
+      // Mapping 5
+      productCode = 'Current Individual';
+      accountTypeCode = 'CAI- ZIG CAI';
+      accountSubType = 'Individual Low Cost';
+    } else if ((currency === 'USD' || currency === 'ZAR') && this.selectedProductCode === 'Low Cost Account') {
+      // Mapping 6
+      productCode = 'FCA Current Individual';
+      accountTypeCode = 'FXCAI- FCA CAI';
+      accountSubType = 'FX Individual Low Cost Account';
+    } else if (currency === 'ZWG & USD' ) {
+      productCode = this.selectedProductCode
     }
-    if (this.createAccountForm.employmentDetails.currency == 'USD') {
-      this.createAccountForm.employmentDetails.accountType = 'FXCAI - FCA CAI'
+
+    // assign back to form (note: accountType will now hold the code string)
+    this.createAccountForm.employmentDetails.productCode = productCode;
+    this.createAccountForm.employmentDetails.accountType = accountTypeCode;
+    this.createAccountForm.employmentDetails.accountSubType = accountSubType;
   }
-  }
+
+
+  selectedProductCode?: any;
+
+  accountTypes = [
+    "Current Account",
+    "Savings Account",
+    "Low Cost Account"
+  ]
 
   maritalStatusOptions: string[] = [
     "MARRIED",
@@ -1088,7 +1238,7 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
       this.signatureFileList,
       this.proofOfResFileList
     ];
-  
+
     return fileLists.every(list => list.length > 0);
   }
 
@@ -1135,6 +1285,7 @@ export class AccountOpeningComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   generatePDF() {
+    // @ts-ignore
     var data = document.getElementById('terms-and-conditions')!;
     html2canvas(data).then((canvas) => {
       var docName = 'AFC Commercial Bank Account Opening Terms and Conditions ' + new Date();
