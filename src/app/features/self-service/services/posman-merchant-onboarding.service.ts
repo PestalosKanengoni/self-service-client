@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {PosmanMerchantOnboarding} from "../pages/posman-merchant-onboarding/posman-merchant-onboarding";
 
 
@@ -13,6 +13,8 @@ export class PosmanMerchantOnboardingService {
 
 
   constructor(private http: HttpClient) { }
+
+  getBranchesResponse$ = new Subject();
 
   createPosRequest(request: PosmanMerchantOnboarding, file: File): Observable<any> {
     const formData = new FormData();
@@ -30,7 +32,4 @@ export class PosmanMerchantOnboardingService {
     return this.http.post(SELF_SERVICE_URL, formData);
   }
 
-  uploadFile(req: any): Observable<any> {
-    return this.http.post(SELF_SERVICE_URL + 'cdn/upload', req);
-  }
 }
