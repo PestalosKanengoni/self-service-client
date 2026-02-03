@@ -94,6 +94,29 @@
             Submit Application
           </button>
         </div>
+
+        <nz-modal
+          [(nzVisible)]="isDoneVisible"
+          [nzTitle]="modalDoneTitle"
+          [nzContent]="modalDoneContent"
+          [nzFooter]="modalDoneFooter"
+          (nzOnCancel)="handleDoneCancel()"
+        >
+          <ng-template #modalDoneTitle></ng-template>
+
+          <ng-template #modalDoneContent>
+            <div style="text-align: center">
+              Your application has been submitted for processing. <br />
+              Your ticket number is:
+              <br />
+              <span style="font-size: 20px">{{savedTicketNumber}}</span>
+              <p>Your application has been processed. </p>
+            </div>
+          </ng-template>
+
+          <ng-template #modalDoneFooter> </ng-template>
+        </nz-modal>
+
       </div>
     </div>
   </div>

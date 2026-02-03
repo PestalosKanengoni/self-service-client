@@ -13,6 +13,8 @@ import {NzUploadComponent, NzUploadFile} from "ng-zorro-antd/upload";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
 import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
+import {NzModalComponent} from "ng-zorro-antd/modal";
+import {RoutingService} from "../../../../core/services/routing.service";
 
 @Component({
   selector: 'app-posman-merchant-onboarding',
@@ -25,7 +27,8 @@ import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
     NzUploadComponent,
     NzButtonComponent,
     NzPopconfirmDirective,
-    NzTooltipDirective
+    NzTooltipDirective,
+    NzModalComponent
   ],
   templateUrl: './posman-merchant-onboarding.component.html',
   standalone: true,
@@ -42,6 +45,7 @@ export class PosmanMerchantOnboardingComponent implements OnInit{
               private accountOpeningService: AccountOpeningService,
               private notification: NzNotificationService,
               private route: ActivatedRoute,
+              private routingService: RoutingService,
               ) {
   }
 
@@ -89,6 +93,8 @@ export class PosmanMerchantOnboardingComponent implements OnInit{
     if (successId || isSuccessFlag) {
       this.notification.create('success', 'Success', 'Request submitted successfully');
       this.savedTicketNumber = successId || 'Submitted';
+      this.savedTicketNumber = res.data.ticketId;
+      this.isDoneVisible = true;
       // Optional: this.router.navigate(['/success']);
     } else {
 
@@ -122,6 +128,10 @@ export class PosmanMerchantOnboardingComponent implements OnInit{
   }
 
   subs = new SubscriptionsManager();
+
+  navigateTo(page: string) {
+    this.routingService.navigateByUrl('self-service/' + page);
+  }
 
   getBranchesLoader: boolean = false;
   getBranches() {
@@ -217,7 +227,7 @@ export class PosmanMerchantOnboardingComponent implements OnInit{
       formData.append("owner", "SelfService");
       formData.append("operation", "UPLOAD");
       // Updated path to use .id instead of .pidNumber
-      formData.append("path", "pos-onboarding, " + this.createAccountForm.personalInformation.pidNumber);
+      formData.append("path", "posman, " + this.createAccountForm.personalInformation.pidNumber);
       formData.append("temporary", "false");
       formData.append("namePrefix", this.createAccountForm.personalInformation.pidNumber);
 
@@ -299,6 +309,13 @@ export class PosmanMerchantOnboardingComponent implements OnInit{
       this.notification.create('error', 'Upload Error', 'Failed to process documents.');
       this.createAccountLoader = false;
     }
+  }
+
+  isDoneVisible = false;
+
+  handleDoneCancel(): void {
+    this.isDoneVisible = false;
+    this.navigateTo('home');
   }
 
 }
