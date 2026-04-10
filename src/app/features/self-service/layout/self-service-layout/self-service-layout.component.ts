@@ -22,5 +22,17 @@ export class SelfServiceLayoutComponent {
 
   navigateTo(page: string) {
     this.routingService.navigateByUrl('self-service/' + page);
+    this.handleLoansCancel();
+  }
+
+
+  isLoansVisible = false;
+
+  showLoansModal(): void {
+    this.isLoansVisible = true;
+  }
+
+  handleLoansCancel(): void {
+    this.isLoansVisible = false;
   }
 }
