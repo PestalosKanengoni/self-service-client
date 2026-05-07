@@ -156,7 +156,7 @@ export class PosmanMerchantOnboardingComponent implements OnInit{
   }
 
   onGetMccResponse(res: any){
-    console.log(res);
+    console.log('MCC raw response:', res);
     this.posMcc=res;
     this.getMccLoader = false;
   }
@@ -316,6 +316,17 @@ export class PosmanMerchantOnboardingComponent implements OnInit{
   handleDoneCancel(): void {
     this.isDoneVisible = false;
     this.navigateTo('home');
+  }
+
+  formatIdNumber(value: string) {
+    if (value) {
+      // 1. Remove dashes and any other non-alphanumeric characters
+      // 2. Convert everything to Uppercase
+      const sanitized = value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+
+      // 3. Update the form model
+      this.createAccountForm.personalInformation.pidNumber = sanitized;
+    }
   }
 
 }

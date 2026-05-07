@@ -26,7 +26,10 @@
         <div class="row">
           <div class="col-md-4 mb-3">
             <label class="d-block font-weight-bold">National ID Number <span class="text-danger">*</span></label>
-            <input nz-input placeholder="Enter ID Number" [(ngModel)]="createAccountForm.personalInformation.pidNumber" />
+            <input nz-input placeholder="e.g. 631497524M60"
+                   [(ngModel)]="createAccountForm.personalInformation.pidNumber"
+                   (ngModelChange)="formatIdNumber($event)")
+            />
           </div>
           <div class="col-md-4 mb-3">
             <label class="d-block font-weight-bold">First Name <span class="text-danger">*</span></label>
@@ -41,11 +44,11 @@
         <div class="row">
           <div class="col-md-4 mb-3">
             <label class="d-block font-weight-bold">Phone Number <span class="text-danger">*</span></label>
-            <input nz-input placeholder="e.g. 0771234567" [(ngModel)]="createAccountForm.personalInformation.phone" />
+            <input nz-input placeholder="e.g. 263771234567" [(ngModel)]="createAccountForm.personalInformation.phone" />
           </div>
           <div class="col-md-4 mb-3">
             <label class="d-block font-weight-bold">Email Address <span class="text-danger">*</span></label>
-            <input nz-input type="email" placeholder="email@example.com" [(ngModel)]="createAccountForm.personalInformation.emailId" />
+            <input nz-input type="email" placeholder="user@gmail.com" [(ngModel)]="createAccountForm.personalInformation.emailId" />
           </div>
           <div class="col-md-4 mb-3">
             <label class="d-block font-weight-bold">Shop License Upload <span class="text-danger">*</span></label>
