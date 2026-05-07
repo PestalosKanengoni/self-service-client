@@ -70,10 +70,10 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
     this.accountOpeningService.getBranches();
   }
 
-  onGetBranchesResponse(res: any){
+  onGetBranchesResponse(res: any) {
     console.log(res);
     if (res.success == true) {
-      this.idcBranches=res.data;
+      this.idcBranches = res.data;
     }
     this.getBranchesLoader = false;
   }
@@ -135,11 +135,11 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
 
         console.log(res.data)
         this.title = ["DR", "REV"]
-        if(res.data.Sex == 'M') {
+        if (res.data.Sex == 'M') {
           console.log("MALE")
           this.title = [...this.title, "MR"];
         }
-        if(res.data.Sex == 'F') {
+        if (res.data.Sex == 'F') {
           console.log("FEMALE")
           this.title = [...this.title, "MRS", "MISS", "MS"];
         }
@@ -307,7 +307,7 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
   }
 
   async next() {
-    if(this.current == 1) {
+    if (this.current == 1) {
       const isValid = this.validateMobileNumber(this.createAccountForm.contactDetails.mobileNumber);
       if (!isValid) {
         this.notification.create('error', 'Error', 'The mobile number you entered is invalid')
@@ -326,18 +326,18 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
         return; // Stop execution if mobile number is invalid
       }
     }
-    if(this.current == 2) {
+    if (this.current == 2) {
       this.processAccountType();
       if (!this.processIncomevsSlab()) {
         this.notification.create('error', 'Error', 'Your annual income slab should be greater than your gross income')
         return;
       }
     }
-    if(this.current == 3) {
-      if(this.createAccountForm.employmentDetails.typeOfEmployment === 'Employed' && this.otherFileList.length == 0) {
+    if (this.current == 3) {
+      if (this.createAccountForm.employmentDetails.typeOfEmployment === 'Employed' && this.otherFileList.length == 0) {
         this.notification.create('error', 'Error', 'You need to upload your proof of income')
         return;
-      } else{
+      } else {
         await this.uploadAttachments();
       }
 
@@ -453,7 +453,7 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
 
   documentsUploadDone: boolean = false;
 
-  cancelAccountOpening(){
+  cancelAccountOpening() {
     this.navigateTo('home');
   }
 
@@ -523,7 +523,7 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
   middleName: string = '';
   lastName: string = '';
 
-  disabledLoanDate (current: Date): boolean {
+  disabledLoanDate(current: Date): boolean {
     let today = new Date();
     return current < today
   }
@@ -563,11 +563,11 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
     console.log('Date of birth:', res.DateOfBirth);
     console.log('Date of birth:', dateOfBirth);
 
-    if(res.Sex == 'M') {
+    if (res.Sex == 'M') {
       console.log("MALE")
       this.title = [...this.title, "MR"];
     }
-    if(res.Sex == 'F') {
+    if (res.Sex == 'F') {
       console.log("FEMALE")
       this.title = [...this.title, "MRS", "MISS", "MS"];
     }
@@ -600,7 +600,7 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
   disabledDate = (current: Date): boolean =>
     current <= this.convertToDate(this.createAccountForm.personalInformation.dateOfBirth) || current > new Date();
 
-  disabledYear (current: Date): boolean {
+  disabledYear(current: Date): boolean {
     let today = new Date();
     return current > today
   }
@@ -611,7 +611,7 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
   }
 
   fcbFields = {
-    "loan_purpose":[
+    "loan_purpose": [
       { "key": 1, "value": "Current Account Overdraft" },
       { "key": 2, "value": "Personal Loan Account" },
       { "key": 3, "value": "Auto Loan" },
@@ -763,7 +763,7 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
       annualIncomeSlab: '',
       sourceOfFunds: '',
       dependents: '',
-      currency: '',
+      currency: 'USD',
       grossIncome: '',
       otherSourceOfIncome: '',
       productCode: 'Current Individual',
@@ -781,11 +781,11 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
       otherDocuments: [] as string[],
     },
     loan: {
-      amount:300,
+      amount: null as any,
       product: {},
       next_repayment_date: "",
       type: {},
-      ssb_reference:"",
+      ssb_reference: "",
       loanPurpose: '',
       employerIndustry: '',
       propertyDensity: '',
@@ -814,9 +814,9 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
   ssbTypes = [
     "ROCV",
     "EDU",
-    "AFZ",
-    "ZNA",
-    "GVTPEN",
+    // "AFZ",
+    // "ZNA",
+    // "GVTPEN",
     "CISV-PPH"
   ]
 
@@ -865,7 +865,7 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
       productCode = 'FCA Current Individual';
       accountTypeCode = 'FXCAI- FCA CAI';
       accountSubType = 'FX Individual Low Cost Account';
-    } else if (currency === 'ZWG & USD' ) {
+    } else if (currency === 'ZWG & USD') {
       productCode = this.selectedProductCode
     }
 
@@ -896,18 +896,18 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
     '8th Avenue Branch Byo',
     'BINDURA',
     'Binga',
-// 'Card Centre',
-// 'Central Cash Depot BYO',
-// 'Central Operations',
+    // 'Card Centre',
+    // 'Central Cash Depot BYO',
+    // 'Central Operations',
     'Checheche',
     'Chegutu',
-// 'Debt Recovery',
+    // 'Debt Recovery',
     'Chinhoyi',
     'Chipinge',
     'Chiredzi',
     'CHIVI',
-// 'Corporate Banking',
-// 'Executive Banking',
+    // 'Corporate Banking',
+    // 'Executive Banking',
     'Filabusi',
     'Gokwe',
     'Guruve',
@@ -940,43 +940,43 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
     'Nyika',
     'Rusape',
     'Rushinga',
-// 'Sanyati',
-// 'Treasury',
+    // 'Sanyati',
+    // 'Treasury',
     'Wedza',
     'Westgate',
     'Zvishavane',
-// 'Salary Processing',
-// 'MICROFINANCE HQ',
-// 'MICROFINANCE BINDURA',
-// 'MICROFINANCE BINGA',
-// 'MICROFINANCE CHIBUWE',
-// 'MICROFINANCE CHIREDZI',
-// 'MICROFINANCE FILABUSI',
-// 'MICROFINANCE GOKWE',
-// 'MICROFINANCE GURUVE',
-// 'MICROFINANCE GWANDA',
-// 'MICROFINANCE KAROI',
-// 'MICROFINANCE MAPHISA',
-// 'MICROFINANCE MARONDERA',
-// 'MICROFINANCE MUTARE',
-// 'MICROFINANCE MUTOKO',
-// 'MICROFINANCE NELSON',
-// 'MICROFINANCE NORTON',
-// 'MICROFINANCE KOPJE',
-// 'MICROFINANCE SANYATI',
-// 'MICROFINANCE WESTGATE',
-// 'MICROFINANCE EIGHTH',
-// 'MICROFINANCE ZVISHA',
-// 'Land Bank HQ',
-// 'Land Bank Chinhoyi',
-// 'Land Bank Marondera',
-// 'Land Bank Mutare',
-// 'Land Bank Bindura',
-// 'Land Bank Masvingo',
-// 'Land Bank Gweru',
-// 'Land Bank Jason Moyo',
-// 'Land Bank Gwanda',
-// 'Land Bank Harare'
+    // 'Salary Processing',
+    // 'MICROFINANCE HQ',
+    // 'MICROFINANCE BINDURA',
+    // 'MICROFINANCE BINGA',
+    // 'MICROFINANCE CHIBUWE',
+    // 'MICROFINANCE CHIREDZI',
+    // 'MICROFINANCE FILABUSI',
+    // 'MICROFINANCE GOKWE',
+    // 'MICROFINANCE GURUVE',
+    // 'MICROFINANCE GWANDA',
+    // 'MICROFINANCE KAROI',
+    // 'MICROFINANCE MAPHISA',
+    // 'MICROFINANCE MARONDERA',
+    // 'MICROFINANCE MUTARE',
+    // 'MICROFINANCE MUTOKO',
+    // 'MICROFINANCE NELSON',
+    // 'MICROFINANCE NORTON',
+    // 'MICROFINANCE KOPJE',
+    // 'MICROFINANCE SANYATI',
+    // 'MICROFINANCE WESTGATE',
+    // 'MICROFINANCE EIGHTH',
+    // 'MICROFINANCE ZVISHA',
+    // 'Land Bank HQ',
+    // 'Land Bank Chinhoyi',
+    // 'Land Bank Marondera',
+    // 'Land Bank Mutare',
+    // 'Land Bank Bindura',
+    // 'Land Bank Masvingo',
+    // 'Land Bank Gweru',
+    // 'Land Bank Jason Moyo',
+    // 'Land Bank Gwanda',
+    // 'Land Bank Harare'
   ];
 
   gender = [
@@ -1389,6 +1389,89 @@ export class LoanApplicationNonAfcComponent implements OnInit, OnChanges, OnDest
     ];
 
     return fileLists.every(list => list.length > 0);
+  }
+
+  isValidSsbReference(ssb: string): boolean {
+    const ssbRegex = /^\d{7}[a-zA-Z]$/;
+    return ssbRegex.test(ssb);
+  }
+
+  isLoanStepValid(): boolean {
+    const loan = this.createAccountForm.loan;
+    const bank = this.createAccountForm.bank;
+
+    if (!loan.ssb_reference || !this.isValidSsbReference(loan.ssb_reference)) {
+      return false;
+    }
+
+    if (loan.amount == null || loan.amount < 1 || loan.amount > 3500) {
+      return false;
+    }
+
+    const requiredLoanFields = [
+      'product', 'type', 'loanPurpose', 'employerIndustry', 
+      'propertyDensity', 'propertyOwnership', 'maritalStatus', 
+      'occupationClass', 'salaryRange', 'employer'
+    ];
+
+    for (const field of requiredLoanFields) {
+      const val = (loan as any)[field];
+      if (val === '' || val === null || val === undefined) {
+        return false;
+      }
+      if (typeof val === 'object' && Object.keys(val).length === 0) {
+        return false;
+      }
+    }
+
+    if (!this.selectedBank || (typeof this.selectedBank === 'object' && Object.keys(this.selectedBank).length === 0)) {
+      return false;
+    }
+
+    if (!bank.account_number || bank.account_number === '') {
+      return false;
+    }
+
+    return true;
+  }
+
+  getLoanStepTooltip(): string {
+    const loan = this.createAccountForm.loan;
+    const bank = this.createAccountForm.bank;
+
+    if (loan.amount == null || loan.amount < 1 || loan.amount > 3500) {
+      return 'Loan amount should be between 1 and 3500';
+    }
+
+    if (!loan.ssb_reference || !this.isValidSsbReference(loan.ssb_reference)) {
+      return 'Employee Number must be 7 digits followed by 1 letter';
+    }
+
+    const requiredLoanFields = [
+      'product', 'type', 'loanPurpose', 'employerIndustry', 
+      'propertyDensity', 'propertyOwnership', 'maritalStatus', 
+      'occupationClass', 'salaryRange', 'employer'
+    ];
+
+    for (const field of requiredLoanFields) {
+      const val = (loan as any)[field];
+      if (val === '' || val === null || val === undefined) {
+        return 'Please enter all required loan information';
+      }
+      if (typeof val === 'object' && Object.keys(val).length === 0) {
+        return 'Please enter all required loan information';
+      }
+    }
+
+    if (!this.selectedBank || (typeof this.selectedBank === 'object' && Object.keys(this.selectedBank).length === 0)) {
+      return 'Please select a bank';
+    }
+
+    if (!bank.account_number || bank.account_number === '') {
+      return 'Please enter an account number';
+    }
+
+    return '';
   }
 
   openFasModal() {
