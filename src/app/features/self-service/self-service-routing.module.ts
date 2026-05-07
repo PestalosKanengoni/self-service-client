@@ -8,9 +8,7 @@ import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 import { LoanApplicationComponent } from './pages/loan-application/loan-application.component';
 import { GuarantorConfirmationComponent } from './pages/guarantor-confirmation/guarantor-confirmation.component';
 import { InsuranceApplicationComponent } from './pages/insurance-application/insurance-application.component';
-import {
-  PosmanMerchantOnboardingComponent
-} from "./pages/posman-merchant-onboarding/posman-merchant-onboarding.component";
+import {LoanApplicationNonAfcComponent} from "./pages/loan-application-non-afc/loan-application-non-afc.component";
 
 const routes: Routes = [
   {
@@ -21,7 +19,7 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'open-new-account', component: AccountOpeningComponent },
       { path: 'loan-application', component: LoanApplicationComponent },
-      { path: 'posman-merchant-onboarding', component: PosmanMerchantOnboardingComponent },
+      { path: 'loan-application-non-afc', component: LoanApplicationNonAfcComponent },
       // { path: 'guarantor-confirmation', component: GuarantorConfirmationComponent },
       { path: 'insurance-application', component: InsuranceApplicationComponent },
       { path: 'faqs', component: FaqsComponent },
